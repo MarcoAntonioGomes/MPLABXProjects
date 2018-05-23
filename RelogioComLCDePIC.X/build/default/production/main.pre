@@ -5776,7 +5776,7 @@ char estado = 0;
 char versao[6] = {'0','1','.','0','0'};
 char horarioDespertador[6];
 
-
+char i;
 char flagSegundo = 0;
 char cont=0;
 char flagDespertadorLigado = 0;
@@ -5822,6 +5822,28 @@ cont = 0;
 TMR0 = 26474;
 INTCONbits.TMR0IF = 0;
 }
+
+
+if(PIR1bits.RCIF == 1)
+{
+if(i<7)
+{
+while(!RCIF);
+BUFFCOM[i]= RCREG;
+
+i++;
+}else
+{
+PIR1bits.RCIF = 0;
+i=0;
+estado = 1;
+
+}
+
+
+}
+
+
 
 }
 
@@ -6023,22 +6045,6 @@ botaoMin = PORTCbits.RC2;
 
 }
 
-void checaRX(){
-char i=0;
-if(i<7)
-{
-while(!RCIF);
-BUFFCOM[i]= RCREG;
-
-i++;
-}else
-{
-PIR1bits.RCIF = 0;
-i=0;
-estado = 1;
-
-}
-}
 
 
 
@@ -6301,7 +6307,7 @@ TRISD = 0x00;
 TRISC = 0x01;
 SPBRG=(((20000000/64)/9600)-1);
 
-# 589
+# 595
 RCSTA = 0b10010000;
 TXSTA = 0b00100000;
 
@@ -6364,7 +6370,7 @@ init_XLCD();
 
 
 while(1){
-
+maquinaEstado();
 botao = PORTCbits.RC0;
 if(botao){
 Delay10KTCYx(180);
@@ -6380,7 +6386,6 @@ if(flagSegundo){
 
 atualiza_Tela(0);
 trata_relogio_data();
-
 flagSegundo=0;
 
 }

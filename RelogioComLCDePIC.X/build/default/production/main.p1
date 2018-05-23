@@ -24,6 +24,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S354 . . . . ]
 "8476
 [v _INTCONbits `VS354 ~T0 @X0 0 e@4082 ]
+"4423
+[s S173 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S173 . TMR1IF TMR2IF CCP1IF SSPIF TXIF RCIF ADIF SPPIF ]
+"4433
+[s S174 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S174 . . TX1IF RC1IF . PSPIF ]
+"4422
+[u S172 `S173 1 `S174 1 ]
+[n S172 . . . ]
+"4441
+[v _PIR1bits `VS172 ~T0 @X0 0 e@3998 ]
+"9774
+[v _RCIF `Vb ~T0 @X0 0 e@31989 ]
+"5351
+[v _RCREG `Vuc ~T0 @X0 0 e@4014 ]
 "194 C:\Program Files (x86)\Microchip\xc8\v1.41\include\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
 "87 C:\Program Files (x86)\Microchip\xc8\v1.41\include\plib\xlcd.h
@@ -72,22 +87,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTCbits `VS105 ~T0 @X0 0 e@3970 ]
 "37 C:\Program Files (x86)\Microchip\xc8\v1.41\include\plib\delays.h
 [v _Delay10KTCYx `(v ~T0 @X0 0 ef1`uc ]
-"9774 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4550.h
-[v _RCIF `Vb ~T0 @X0 0 e@31989 ]
-"5351
-[v _RCREG `Vuc ~T0 @X0 0 e@4014 ]
-"4423
-[s S173 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S173 . TMR1IF TMR2IF CCP1IF SSPIF TXIF RCIF ADIF SPPIF ]
-"4433
-[s S174 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S174 . . TX1IF RC1IF . PSPIF ]
-"4422
-[u S172 `S173 1 `S174 1 ]
-[n S172 . . . ]
-"4441
-[v _PIR1bits `VS172 ~T0 @X0 0 e@3998 ]
-"10174
+"10174 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4550.h
 [v _TXIF `Vb ~T0 @X0 0 e@31988 ]
 "5340
 [v _TXREG `Vuc ~T0 @X0 0 e@4013 ]
@@ -4410,6 +4410,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "58
 [v _horarioDespertador `uc ~T0 @X0 -> 6 `i e ]
 [; ;main.c: 58: char horarioDespertador[6];
+"60
+[v _i `uc ~T0 @X0 1 e ]
+[; ;main.c: 60: char i;
 "61
 [v _flagSegundo `uc ~T0 @X0 1 e ]
 [i _flagSegundo
@@ -4516,9 +4519,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [; ;main.c: 87: char dias_mes[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
-[v F4846 `(v ~T0 @X0 1 tf ]
+[v F4847 `(v ~T0 @X0 1 tf ]
 "90
-[v _pic_isr `ILF4846 ~T0 @X0 1 e ]
+[v _pic_isr `ILF4847 ~T0 @X0 1 e ]
 {
 [; ;main.c: 90: void interrupt low_priority pic_isr(void){
 [e :U _pic_isr ]
@@ -4554,1323 +4557,1318 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 407 ]
 [; ;main.c: 105: }
-[; ;main.c: 107: }
-"107
+[; ;main.c: 108: if(PIR1bits.RCIF == 1)
+"108
+[e $ ! == -> . . _PIR1bits 0 5 `i -> 1 `i 409  ]
+[; ;main.c: 109: {
+"109
+{
+[; ;main.c: 110: if(i<7)
+"110
+[e $ ! < -> _i `i -> 7 `i 410  ]
+[; ;main.c: 111: {
+"111
+{
+[; ;main.c: 112: while(!RCIF);
+"112
+[e $U 411  ]
+[e :U 412 ]
+[e :U 411 ]
+[e $ ! _RCIF 412  ]
+[e :U 413 ]
+[; ;main.c: 113: BUFFCOM[i]= RCREG;
+"113
+[e = *U + &U _BUFFCOM * -> _i `ux -> -> # *U &U _BUFFCOM `ui `ux _RCREG ]
+[; ;main.c: 115: i++;
+"115
+[e ++ _i -> -> 1 `i `uc ]
+"116
+}
+[; ;main.c: 116: }else
+[e $U 414  ]
+[e :U 410 ]
+[; ;main.c: 117: {
+"117
+{
+[; ;main.c: 118: PIR1bits.RCIF = 0;
+"118
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 119: i=0;
+"119
+[e = _i -> -> 0 `i `uc ]
+[; ;main.c: 120: estado = 1;
+"120
+[e = _estado -> -> 1 `i `uc ]
+"122
+}
+[e :U 414 ]
+"125
+}
+[e :U 409 ]
+[; ;main.c: 122: }
+[; ;main.c: 125: }
+[; ;main.c: 129: }
+"129
 [e :UE 406 ]
 }
-"109
+"131
 [v _verificaAnoBissexto `(uc ~T0 @X0 1 ef1`i ]
 {
-[; ;main.c: 109: char verificaAnoBissexto(int ano){
+[; ;main.c: 131: char verificaAnoBissexto(int ano){
 [e :U _verificaAnoBissexto ]
 [v _ano `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 110: if(ano % 4 == 0 ){
-"110
-[e $ ! == % _ano -> 4 `i -> 0 `i 410  ]
+[; ;main.c: 132: if(ano % 4 == 0 ){
+"132
+[e $ ! == % _ano -> 4 `i -> 0 `i 416  ]
 {
-[; ;main.c: 111: if( ano % 100 != 0){
-"111
-[e $ ! != % _ano -> 100 `i -> 0 `i 411  ]
+[; ;main.c: 133: if( ano % 100 != 0){
+"133
+[e $ ! != % _ano -> 100 `i -> 0 `i 417  ]
 {
-[; ;main.c: 112: return 1;
-"112
+[; ;main.c: 134: return 1;
+"134
 [e ) -> -> 1 `i `uc ]
-[e $UE 409  ]
-"113
+[e $UE 415  ]
+"135
 }
-[; ;main.c: 113: }
-[e $U 412  ]
-"114
-[e :U 411 ]
-[; ;main.c: 114: else
-[; ;main.c: 115: {
-"115
+[; ;main.c: 135: }
+[e $U 418  ]
+"136
+[e :U 417 ]
+[; ;main.c: 136: else
+[; ;main.c: 137: {
+"137
 {
-[; ;main.c: 116: if( ano % 400 != 0){
-"116
-[e $ ! != % _ano -> 400 `i -> 0 `i 413  ]
+[; ;main.c: 138: if( ano % 400 != 0){
+"138
+[e $ ! != % _ano -> 400 `i -> 0 `i 419  ]
 {
-[; ;main.c: 117: return 0;
-"117
+[; ;main.c: 139: return 0;
+"139
 [e ) -> -> 0 `i `uc ]
-[e $UE 409  ]
-"118
+[e $UE 415  ]
+"140
 }
-[; ;main.c: 118: }
-[e $U 414  ]
-"119
-[e :U 413 ]
-[; ;main.c: 119: else{
+[; ;main.c: 140: }
+[e $U 420  ]
+"141
+[e :U 419 ]
+[; ;main.c: 141: else{
 {
-[; ;main.c: 120: return 1;
-"120
+[; ;main.c: 142: return 1;
+"142
 [e ) -> -> 1 `i `uc ]
-[e $UE 409  ]
-"121
+[e $UE 415  ]
+"143
 }
-[e :U 414 ]
-"122
+[e :U 420 ]
+"144
 }
-[e :U 412 ]
-"123
+[e :U 418 ]
+"145
 }
-[; ;main.c: 121: }
-[; ;main.c: 122: }
-[; ;main.c: 123: }
-[e $U 415  ]
-"124
-[e :U 410 ]
-[; ;main.c: 124: else{
+[; ;main.c: 143: }
+[; ;main.c: 144: }
+[; ;main.c: 145: }
+[e $U 421  ]
+"146
+[e :U 416 ]
+[; ;main.c: 146: else{
 {
-[; ;main.c: 125: return 0;
-"125
+[; ;main.c: 147: return 0;
+"147
 [e ) -> -> 0 `i `uc ]
-[e $UE 409  ]
-"126
+[e $UE 415  ]
+"148
 }
-[e :U 415 ]
-[; ;main.c: 126: }
-[; ;main.c: 129: }
-"129
-[e :UE 409 ]
+[e :U 421 ]
+[; ;main.c: 148: }
+[; ;main.c: 151: }
+"151
+[e :UE 415 ]
 }
-"131
+"153
 [v _converteAnoString `(*uc ~T0 @X0 1 ef1`i ]
 {
-[; ;main.c: 131: char *converteAnoString(int ano){
+[; ;main.c: 153: char *converteAnoString(int ano){
 [e :U _converteAnoString ]
 [v _ano `i ~T0 @X0 1 r1 ]
 [f ]
-"132
+"154
 [v _anoStr `uc ~T0 @X0 -> 4 `i a ]
-[; ;main.c: 132: char anoStr[4];
-[; ;main.c: 133: sprintf(anoStr,"%i",ano);
-"133
+[; ;main.c: 154: char anoStr[4];
+[; ;main.c: 155: sprintf(anoStr,"%i",ano);
+"155
 [e ( _sprintf (1 , (. , &U _anoStr :s 1C _ano ]
-[; ;main.c: 134: return anoStr;
-"134
+[; ;main.c: 156: return anoStr;
+"156
 [e ) &U _anoStr ]
-[e $UE 416  ]
-[; ;main.c: 135: }
-"135
-[e :UE 416 ]
+[e $UE 422  ]
+[; ;main.c: 157: }
+"157
+[e :UE 422 ]
 }
-"137
+"159
 [v _trata_relogio_data `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 137: void trata_relogio_data(){
+[; ;main.c: 159: void trata_relogio_data(){
 [e :U _trata_relogio_data ]
 [f ]
-[; ;main.c: 138: data_horario.horario[7]++;
-"138
-[e ++ *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 139: if(data_horario.horario[7]>'9'){
-"139
-[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 418  ]
-{
-[; ;main.c: 140: data_horario.horario[7]='0';
-"140
-[e = *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 141: data_horario.horario[6]++;
-"141
-[e ++ *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 142: if(data_horario.horario[6]>'5'){
-"142
-[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 53 `ui 419  ]
-{
-[; ;main.c: 143: data_horario.horario[6] ='0';
-"143
-[e = *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 144: data_horario.horario[4]++;
-"144
-[e ++ *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 145: virouDia = 1;
-"145
-[e = _virouDia -> -> 1 `i `uc ]
-[; ;main.c: 146: if(data_horario.horario[4]>'9'){
-"146
-[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 420  ]
-{
-[; ;main.c: 147: data_horario.horario[4] ='0';
-"147
-[e = *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 148: data_horario.horario[3]++;
-"148
-[e ++ *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 149: if( data_horario.horario[3]>'5'){
-"149
-[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 53 `ui 421  ]
-{
-[; ;main.c: 150: data_horario.horario[3] ='0';
-"150
-[e = *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 151: data_horario.horario[1]++;
-"151
-[e ++ *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 152: if( data_horario.horario[1]> '9'){
-"152
-[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 422  ]
-{
-[; ;main.c: 153: data_horario.horario[1]= '0';
-"153
-[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 154: data_horario.horario[0]++;
-"154
-[e ++ *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
-"155
-}
-[e :U 422 ]
-[; ;main.c: 155: }
-[; ;main.c: 156: if( data_horario.horario[0] == '2' && data_horario.horario[1] > '3'){
-"156
-[e $ ! && == -> *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 50 `ui > -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 51 `ui 423  ]
-{
-[; ;main.c: 157: data_horario.horario[0] = '0';
-"157
-[e = *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 158: data_horario.horario[1] = '0';
-"158
-[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 159: data_horario.data[1]++;
-"159
-[e ++ *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 160: data_horario.dias++;
+[; ;main.c: 160: data_horario.horario[7]++;
 "160
-[e ++ . _data_horario 2 -> -> 1 `i `uc ]
-[; ;main.c: 161: if(data_horario.data[1]>'9'){
+[e ++ *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 161: if(data_horario.horario[7]>'9'){
 "161
-[e $ ! > -> *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux `ui -> 57 `ui 424  ]
+[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 424  ]
 {
-[; ;main.c: 162: data_horario.data[1]=0;
+[; ;main.c: 162: data_horario.horario[7]='0';
 "162
-[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 0 `i `uc ]
-[; ;main.c: 163: data_horario.data[0]++;
+[e = *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 163: data_horario.horario[6]++;
 "163
-[e ++ *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
+[e ++ *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 164: if(data_horario.horario[6]>'5'){
 "164
-}
-[e :U 424 ]
-[; ;main.c: 164: }
-[; ;main.c: 165: if(data_horario.dias > dias_mes[data_horario.mes_atual-1]){
+[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 53 `ui 425  ]
+{
+[; ;main.c: 165: data_horario.horario[6] ='0';
 "165
-[e $ ! > -> . _data_horario 2 `i -> *U + &U _dias_mes * -> -> - -> . _data_horario 3 `i -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux `i 425  ]
-{
-[; ;main.c: 166: data_horario.data[1]= '1';
+[e = *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 166: data_horario.horario[4]++;
 "166
-[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
-[; ;main.c: 167: data_horario.data[0]='0';
+[e ++ *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 167: virouDia = 1;
 "167
-[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 168: data_horario.mes_atual++;
+[e = _virouDia -> -> 1 `i `uc ]
+[; ;main.c: 168: if(data_horario.horario[4]>'9'){
 "168
-[e ++ . _data_horario 3 -> -> 1 `i `uc ]
-[; ;main.c: 169: data_horario.data[4]++;
+[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 426  ]
+{
+[; ;main.c: 169: data_horario.horario[4] ='0';
 "169
-[e ++ *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 170: if( data_horario.data[4] >'9'){
+[e = *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 170: data_horario.horario[3]++;
 "170
-[e $ ! > -> *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux `ui -> 57 `ui 426  ]
-{
-[; ;main.c: 171: data_horario.data[4] ='0';
+[e ++ *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 171: if( data_horario.horario[3]>'5'){
 "171
-[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 172: data_horario.data[3]++;
+[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 53 `ui 427  ]
+{
+[; ;main.c: 172: data_horario.horario[3] ='0';
 "172
-[e ++ *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
+[e = *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 173: data_horario.horario[1]++;
 "173
-}
-[e :U 426 ]
-[; ;main.c: 173: }
-[; ;main.c: 174: if(data_horario.mes_atual >11){
+[e ++ *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 174: if( data_horario.horario[1]> '9'){
 "174
-[e $ ! > -> . _data_horario 3 `i -> 11 `i 427  ]
+[e $ ! > -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 57 `ui 428  ]
 {
-[; ;main.c: 175: data_horario.data[4] ='1';
+[; ;main.c: 175: data_horario.horario[1]= '0';
 "175
-[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
-[; ;main.c: 176: data_horario.data[3]='0';
+[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 176: data_horario.horario[0]++;
 "176
-[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 177: data_horario.mes_atual =1;
+[e ++ *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 1 `i `uc ]
 "177
-[e = . _data_horario 3 -> -> 1 `i `uc ]
-[; ;main.c: 178: data_horario.ano++;
-"178
-[e ++ . _data_horario 4 -> 1 `i ]
-[; ;main.c: 179: if(verificaAnoBissexto(data_horario.ano)){
-"179
-[e $ ! != -> ( _verificaAnoBissexto (1 . _data_horario 4 `i -> -> -> 0 `i `uc `i 428  ]
-{
-[; ;main.c: 180: dias_mes[1] = 29;
-"180
-[e = *U + &U _dias_mes * -> -> -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux -> -> 29 `i `uc ]
-"181
 }
-[; ;main.c: 181: }
-[e $U 429  ]
-"182
 [e :U 428 ]
-[; ;main.c: 182: else
-[; ;main.c: 183: {
-"183
+[; ;main.c: 177: }
+[; ;main.c: 178: if( data_horario.horario[0] == '2' && data_horario.horario[1] > '3'){
+"178
+[e $ ! && == -> *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 50 `ui > -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `ui -> 51 `ui 429  ]
 {
-[; ;main.c: 184: dias_mes[1] = 28;
+[; ;main.c: 179: data_horario.horario[0] = '0';
+"179
+[e = *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 180: data_horario.horario[1] = '0';
+"180
+[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 181: data_horario.data[1]++;
+"181
+[e ++ *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 182: data_horario.dias++;
+"182
+[e ++ . _data_horario 2 -> -> 1 `i `uc ]
+[; ;main.c: 183: if(data_horario.data[1]>'9'){
+"183
+[e $ ! > -> *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux `ui -> 57 `ui 430  ]
+{
+[; ;main.c: 184: data_horario.data[1]=0;
 "184
-[e = *U + &U _dias_mes * -> -> -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux -> -> 28 `i `uc ]
+[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 0 `i `uc ]
+[; ;main.c: 185: data_horario.data[0]++;
 "185
-}
-[e :U 429 ]
+[e ++ *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
 "186
 }
-[e :U 427 ]
+[e :U 430 ]
+[; ;main.c: 186: }
+[; ;main.c: 187: if(data_horario.dias > dias_mes[data_horario.mes_atual-1]){
 "187
-}
-[e :U 425 ]
+[e $ ! > -> . _data_horario 2 `i -> *U + &U _dias_mes * -> -> - -> . _data_horario 3 `i -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux `i 431  ]
+{
+[; ;main.c: 188: data_horario.data[1]= '1';
+"188
+[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
+[; ;main.c: 189: data_horario.data[0]='0';
 "189
-}
-[e :U 423 ]
+[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 190: data_horario.mes_atual++;
+"190
+[e ++ . _data_horario 3 -> -> 1 `i `uc ]
+[; ;main.c: 191: data_horario.data[4]++;
 "191
-}
-[e :U 421 ]
+[e ++ *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 192: if( data_horario.data[4] >'9'){
+"192
+[e $ ! > -> *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux `ui -> 57 `ui 432  ]
+{
+[; ;main.c: 193: data_horario.data[4] ='0';
 "193
-}
-[e :U 420 ]
+[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 194: data_horario.data[3]++;
 "194
-}
-[e :U 419 ]
+[e ++ *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 1 `i `uc ]
 "195
 }
-[e :U 418 ]
-[; ;main.c: 185: }
-[; ;main.c: 186: }
-[; ;main.c: 187: }
-[; ;main.c: 189: }
-[; ;main.c: 191: }
-[; ;main.c: 193: }
-[; ;main.c: 194: }
-[; ;main.c: 195: }
-[; ;main.c: 198: }
-"198
-[e :UE 417 ]
-}
-"200
-[v _init_XLCD `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 200: void init_XLCD(VOID){
-[e :U _init_XLCD ]
-[f ]
-[; ;main.c: 201: OpenXLCD(0b00101100&0b00111000);
-"201
-[e ( _OpenXLCD (1 -> & -> 44 `i -> 56 `i `uc ]
-[; ;main.c: 202: while (BusyXLCD());
-"202
-[e $U 431  ]
 [e :U 432 ]
-[e :U 431 ]
-[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 432  ]
-[e :U 433 ]
-[; ;main.c: 203: WriteCmdXLCD(0x06);
+[; ;main.c: 195: }
+[; ;main.c: 196: if(data_horario.mes_atual >11){
+"196
+[e $ ! > -> . _data_horario 3 `i -> 11 `i 433  ]
+{
+[; ;main.c: 197: data_horario.data[4] ='1';
+"197
+[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
+[; ;main.c: 198: data_horario.data[3]='0';
+"198
+[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 199: data_horario.mes_atual =1;
+"199
+[e = . _data_horario 3 -> -> 1 `i `uc ]
+[; ;main.c: 200: data_horario.ano++;
+"200
+[e ++ . _data_horario 4 -> 1 `i ]
+[; ;main.c: 201: if(verificaAnoBissexto(data_horario.ano)){
+"201
+[e $ ! != -> ( _verificaAnoBissexto (1 . _data_horario 4 `i -> -> -> 0 `i `uc `i 434  ]
+{
+[; ;main.c: 202: dias_mes[1] = 29;
+"202
+[e = *U + &U _dias_mes * -> -> -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux -> -> 29 `i `uc ]
 "203
-[e ( _WriteCmdXLCD (1 -> -> 6 `i `uc ]
-[; ;main.c: 204: WriteCmdXLCD(0x0C);
+}
+[; ;main.c: 203: }
+[e $U 435  ]
 "204
-[e ( _WriteCmdXLCD (1 -> -> 12 `i `uc ]
-[; ;main.c: 205: }
+[e :U 434 ]
+[; ;main.c: 204: else
+[; ;main.c: 205: {
 "205
-[e :UE 430 ]
-}
+{
+[; ;main.c: 206: dias_mes[1] = 28;
+"206
+[e = *U + &U _dias_mes * -> -> -> 1 `i `ui `ux -> -> # *U &U _dias_mes `ui `ux -> -> 28 `i `uc ]
 "207
-[v _acionaDespertador `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 207: void acionaDespertador(){
-[e :U _acionaDespertador ]
-[f ]
-[; ;main.c: 208: if(virouDia){
-"208
-[e $ ! != -> _virouDia `i -> -> -> 0 `i `uc `i 435  ]
-{
-[; ;main.c: 209: if((data_horario.horario[0] == horarioDespertador[0]) && (data_horario.horario[1] == horarioDespertador[1]) && (data_horario.horario[3] == horarioDespertador[3]) && (data_horario.horario[4] == horarioDespertador[4])){
-"209
-[e $ ! && && && == -> *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i 436  ]
-{
-[; ;main.c: 210: flagDespertadorLigado = 1;
-"210
-[e = _flagDespertadorLigado -> -> 1 `i `uc ]
-"211
-}
-[e :U 436 ]
-"212
 }
 [e :U 435 ]
-[; ;main.c: 211: }
-[; ;main.c: 212: }
-[; ;main.c: 213: }
-"213
-[e :UE 434 ]
+"208
 }
+[e :U 433 ]
+"209
+}
+[e :U 431 ]
+"211
+}
+[e :U 429 ]
+"213
+}
+[e :U 427 ]
+"215
+}
+[e :U 426 ]
 "216
+}
+[e :U 425 ]
+"217
+}
+[e :U 424 ]
+[; ;main.c: 207: }
+[; ;main.c: 208: }
+[; ;main.c: 209: }
+[; ;main.c: 211: }
+[; ;main.c: 213: }
+[; ;main.c: 215: }
+[; ;main.c: 216: }
+[; ;main.c: 217: }
+[; ;main.c: 220: }
+"220
+[e :UE 423 ]
+}
+"222
+[v _init_XLCD `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 222: void init_XLCD(VOID){
+[e :U _init_XLCD ]
+[f ]
+[; ;main.c: 223: OpenXLCD(0b00101100&0b00111000);
+"223
+[e ( _OpenXLCD (1 -> & -> 44 `i -> 56 `i `uc ]
+[; ;main.c: 224: while (BusyXLCD());
+"224
+[e $U 437  ]
+[e :U 438 ]
+[e :U 437 ]
+[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 438  ]
+[e :U 439 ]
+[; ;main.c: 225: WriteCmdXLCD(0x06);
+"225
+[e ( _WriteCmdXLCD (1 -> -> 6 `i `uc ]
+[; ;main.c: 226: WriteCmdXLCD(0x0C);
+"226
+[e ( _WriteCmdXLCD (1 -> -> 12 `i `uc ]
+[; ;main.c: 227: }
+"227
+[e :UE 436 ]
+}
+"229
+[v _acionaDespertador `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 229: void acionaDespertador(){
+[e :U _acionaDespertador ]
+[f ]
+[; ;main.c: 230: if(virouDia){
+"230
+[e $ ! != -> _virouDia `i -> -> -> 0 `i `uc `i 441  ]
+{
+[; ;main.c: 231: if((data_horario.horario[0] == horarioDespertador[0]) && (data_horario.horario[1] == horarioDespertador[1]) && (data_horario.horario[3] == horarioDespertador[3]) && (data_horario.horario[4] == horarioDespertador[4])){
+"231
+[e $ ! && && && == -> *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i == -> *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux `i -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `i 442  ]
+{
+[; ;main.c: 232: flagDespertadorLigado = 1;
+"232
+[e = _flagDespertadorLigado -> -> 1 `i `uc ]
+"233
+}
+[e :U 442 ]
+"234
+}
+[e :U 441 ]
+[; ;main.c: 233: }
+[; ;main.c: 234: }
+[; ;main.c: 235: }
+"235
+[e :UE 440 ]
+}
+"238
 [v _atualiza_Tela `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;main.c: 216: void atualiza_Tela(char troca_ou_nao){
+[; ;main.c: 238: void atualiza_Tela(char troca_ou_nao){
 [e :U _atualiza_Tela ]
 [v _troca_ou_nao `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 218: if(troca_ou_nao == 1){
-"218
-[e $ ! == -> _troca_ou_nao `i -> 1 `i 438  ]
-{
-[; ;main.c: 219: tela_atual++;
-"219
-[e ++ _tela_atual -> -> 1 `i `uc ]
-[; ;main.c: 220: if(tela_atual >2){
-"220
-[e $ ! > -> _tela_atual `i -> 2 `i 439  ]
-{
-[; ;main.c: 221: tela_atual = 0;
-"221
-[e = _tela_atual -> -> 0 `i `uc ]
-"222
-}
-[e :U 439 ]
-"223
-}
-[e :U 438 ]
-[; ;main.c: 222: }
-[; ;main.c: 223: }
-[; ;main.c: 224: switch(tela_atual){
-"224
-[e $U 441  ]
-{
-[; ;main.c: 225: case 0:
-"225
-[e :U 442 ]
-[; ;main.c: 226: SetDDRamAddr(0x00);
-"226
-[e ( _SetDDRamAddr (1 -> -> 0 `i `uc ]
-[; ;main.c: 227: putrsXLCD("Despertador     ");
-"227
-[e ( _putrsXLCD (1 :s 2C ]
-[; ;main.c: 228: SetDDRamAddr(0x40);
-"228
-[e ( _SetDDRamAddr (1 -> -> 64 `i `uc ]
-[; ;main.c: 229: putrsXLCD("Versao: ");
-"229
-[e ( _putrsXLCD (1 :s 3C ]
-[; ;main.c: 230: putrsXLCD(versao);
-"230
-[e ( _putrsXLCD (1 -> &U _versao `*Cuc ]
-[; ;main.c: 232: break;
-"232
-[e $U 440  ]
-[; ;main.c: 233: case 1:
-"233
-[e :U 443 ]
-[; ;main.c: 234: SetDDRamAddr(0x00);
-"234
-[e ( _SetDDRamAddr (1 -> -> 0 `i `uc ]
-[; ;main.c: 235: putrsXLCD("Hora: ");
-"235
-[e ( _putrsXLCD (1 :s 4C ]
-[; ;main.c: 236: putrsXLCD(data_horario.horario);
-"236
-[e ( _putrsXLCD (1 -> &U . _data_horario 0 `*Cuc ]
-[; ;main.c: 237: SetDDRamAddr(0x40);
-"237
-[e ( _SetDDRamAddr (1 -> -> 64 `i `uc ]
-[; ;main.c: 238: putrsXLCD("Data: ");
-"238
-[e ( _putrsXLCD (1 :s 5C ]
-[; ;main.c: 239: putrsXLCD(data_horario.data);
-"239
-[e ( _putrsXLCD (1 -> &U . _data_horario 1 `*Cuc ]
-[; ;main.c: 240: putrsXLCD(converteAnoString(data_horario.ano));
+[; ;main.c: 240: if(troca_ou_nao == 1){
 "240
-[e ( _putrsXLCD (1 -> ( _converteAnoString (1 . _data_horario 4 `*Cuc ]
-[; ;main.c: 241: acionaDespertador();
+[e $ ! == -> _troca_ou_nao `i -> 1 `i 444  ]
+{
+[; ;main.c: 241: tela_atual++;
 "241
-[e ( _acionaDespertador ..  ]
-[; ;main.c: 242: if(flagDespertadorLigado){
+[e ++ _tela_atual -> -> 1 `i `uc ]
+[; ;main.c: 242: if(tela_atual >2){
 "242
-[e $ ! != -> _flagDespertadorLigado `i -> -> -> 0 `i `uc `i 444  ]
+[e $ ! > -> _tela_atual `i -> 2 `i 445  ]
 {
-[; ;main.c: 243: PORTDbits.RD0 = 1;
+[; ;main.c: 243: tela_atual = 0;
 "243
-[e = . . _PORTDbits 0 0 -> -> 1 `i `uc ]
-[; ;main.c: 244: tempoDespertador++;
+[e = _tela_atual -> -> 0 `i `uc ]
 "244
-[e ++ _tempoDespertador -> -> 1 `i `uc ]
-[; ;main.c: 245: if(tempoDespertador > 5){
-"245
-[e $ ! > -> _tempoDespertador `i -> 5 `i 445  ]
-{
-[; ;main.c: 246: tempoDespertador = 0;
-"246
-[e = _tempoDespertador -> -> 0 `i `uc ]
-[; ;main.c: 247: flagDespertadorLigado =0;
-"247
-[e = _flagDespertadorLigado -> -> 0 `i `uc ]
-[; ;main.c: 248: PORTDbits.RD0 = 0;
-"248
-[e = . . _PORTDbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 249: virouDia = 0;
-"249
-[e = _virouDia -> -> 0 `i `uc ]
-"250
 }
 [e :U 445 ]
-"251
+"245
 }
 [e :U 444 ]
-[; ;main.c: 250: }
-[; ;main.c: 251: }
-[; ;main.c: 252: break;
-"252
-[e $U 440  ]
-[; ;main.c: 253: case 2:
-"253
-[e :U 446 ]
-[; ;main.c: 254: SetDDRamAddr(0x00);
-"254
+[; ;main.c: 244: }
+[; ;main.c: 245: }
+[; ;main.c: 246: switch(tela_atual){
+"246
+[e $U 447  ]
+{
+[; ;main.c: 247: case 0:
+"247
+[e :U 448 ]
+[; ;main.c: 248: SetDDRamAddr(0x00);
+"248
 [e ( _SetDDRamAddr (1 -> -> 0 `i `uc ]
-[; ;main.c: 255: putrsXLCD("     ALARME     ");
-"255
-[e ( _putrsXLCD (1 :s 6C ]
-[; ;main.c: 256: SetDDRamAddr(0x40);
-"256
+[; ;main.c: 249: putrsXLCD("Despertador     ");
+"249
+[e ( _putrsXLCD (1 :s 2C ]
+[; ;main.c: 250: SetDDRamAddr(0x40);
+"250
 [e ( _SetDDRamAddr (1 -> -> 64 `i `uc ]
-[; ;main.c: 257: putrsXLCD("     ");
-"257
-[e ( _putrsXLCD (1 :s 7C ]
-[; ;main.c: 258: putrsXLCD(horarioDespertador);
-"258
-[e ( _putrsXLCD (1 -> &U _horarioDespertador `*Cuc ]
-[; ;main.c: 259: putrsXLCD("      ");
-"259
-[e ( _putrsXLCD (1 :s 8C ]
-[; ;main.c: 260: break;
-"260
-[e $U 440  ]
-"261
-}
-[; ;main.c: 261: }
-[e $U 440  ]
-"224
-[e :U 441 ]
-[e [\ _tela_atual , $ -> -> 0 `i `uc 442
- , $ -> -> 1 `i `uc 443
- , $ -> -> 2 `i `uc 446
- 440 ]
-"261
-[e :U 440 ]
-[; ;main.c: 262: }
-"262
-[e :UE 437 ]
-}
-"264
-[v _setaDespertador `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 264: void setaDespertador(){
-[e :U _setaDespertador ]
-[f ]
-[; ;main.c: 265: botaoHora = PORTCbits.RC1;
-"265
-[e = _botaoHora . . _PORTCbits 0 1 ]
-[; ;main.c: 266: botaoMin = PORTCbits.RC2;
-"266
-[e = _botaoMin . . _PORTCbits 0 2 ]
-[; ;main.c: 267: if(botaoHora){
-"267
-[e $ ! != -> _botaoHora `i -> -> -> 0 `i `uc `i 448  ]
-{
-[; ;main.c: 268: Delay10KTCYx(180);
-"268
-[e ( _Delay10KTCYx (1 -> -> 180 `i `uc ]
-[; ;main.c: 270: horarioDespertador[1]++;
-"270
-[e ++ *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 271: if(horarioDespertador[1]>'9'){
-"271
-[e $ ! > -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 449  ]
-{
-[; ;main.c: 272: horarioDespertador[1] ='0';
-"272
-[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 273: horarioDespertador[0]++;
-"273
-[e ++ *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
-"274
-}
+[; ;main.c: 251: putrsXLCD("Versao: ");
+"251
+[e ( _putrsXLCD (1 :s 3C ]
+[; ;main.c: 252: putrsXLCD(versao);
+"252
+[e ( _putrsXLCD (1 -> &U _versao `*Cuc ]
+[; ;main.c: 254: break;
+"254
+[e $U 446  ]
+[; ;main.c: 255: case 1:
+"255
 [e :U 449 ]
-[; ;main.c: 274: }
-[; ;main.c: 275: if(horarioDespertador[0] == '2' && horarioDespertador[1] >'3'){
-"275
-[e $ ! && == -> *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 50 `ui > -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 51 `ui 450  ]
+[; ;main.c: 256: SetDDRamAddr(0x00);
+"256
+[e ( _SetDDRamAddr (1 -> -> 0 `i `uc ]
+[; ;main.c: 257: putrsXLCD("Hora: ");
+"257
+[e ( _putrsXLCD (1 :s 4C ]
+[; ;main.c: 258: putrsXLCD(data_horario.horario);
+"258
+[e ( _putrsXLCD (1 -> &U . _data_horario 0 `*Cuc ]
+[; ;main.c: 259: SetDDRamAddr(0x40);
+"259
+[e ( _SetDDRamAddr (1 -> -> 64 `i `uc ]
+[; ;main.c: 260: putrsXLCD("Data: ");
+"260
+[e ( _putrsXLCD (1 :s 5C ]
+[; ;main.c: 261: putrsXLCD(data_horario.data);
+"261
+[e ( _putrsXLCD (1 -> &U . _data_horario 1 `*Cuc ]
+[; ;main.c: 262: putrsXLCD(converteAnoString(data_horario.ano));
+"262
+[e ( _putrsXLCD (1 -> ( _converteAnoString (1 . _data_horario 4 `*Cuc ]
+[; ;main.c: 263: acionaDespertador();
+"263
+[e ( _acionaDespertador ..  ]
+[; ;main.c: 264: if(flagDespertadorLigado){
+"264
+[e $ ! != -> _flagDespertadorLigado `i -> -> -> 0 `i `uc `i 450  ]
 {
-[; ;main.c: 276: horarioDespertador[1] ='0';
-"276
-[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 277: horarioDespertador[0] ='0';
-"277
-[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-"278
-}
-[e :U 450 ]
-[; ;main.c: 278: }
-[; ;main.c: 280: atualiza_Tela(0);
-"280
-[e ( _atualiza_Tela (1 -> -> 0 `i `uc ]
-[; ;main.c: 281: while(botaoHora){
-"281
-[e $U 451  ]
-[e :U 452 ]
+[; ;main.c: 265: PORTDbits.RD0 = 1;
+"265
+[e = . . _PORTDbits 0 0 -> -> 1 `i `uc ]
+[; ;main.c: 266: tempoDespertador++;
+"266
+[e ++ _tempoDespertador -> -> 1 `i `uc ]
+[; ;main.c: 267: if(tempoDespertador > 5){
+"267
+[e $ ! > -> _tempoDespertador `i -> 5 `i 451  ]
 {
-[; ;main.c: 282: botaoHora = PORTCbits.RC1;
-"282
-[e = _botaoHora . . _PORTCbits 0 1 ]
-"283
+[; ;main.c: 268: tempoDespertador = 0;
+"268
+[e = _tempoDespertador -> -> 0 `i `uc ]
+[; ;main.c: 269: flagDespertadorLigado =0;
+"269
+[e = _flagDespertadorLigado -> -> 0 `i `uc ]
+[; ;main.c: 270: PORTDbits.RD0 = 0;
+"270
+[e = . . _PORTDbits 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 271: virouDia = 0;
+"271
+[e = _virouDia -> -> 0 `i `uc ]
+"272
 }
 [e :U 451 ]
-"281
-[e $ != -> _botaoHora `i -> -> -> 0 `i `uc `i 452  ]
-[e :U 453 ]
-"284
+"273
 }
-[e :U 448 ]
+[e :U 450 ]
+[; ;main.c: 272: }
+[; ;main.c: 273: }
+[; ;main.c: 274: break;
+"274
+[e $U 446  ]
+[; ;main.c: 275: case 2:
+"275
+[e :U 452 ]
+[; ;main.c: 276: SetDDRamAddr(0x00);
+"276
+[e ( _SetDDRamAddr (1 -> -> 0 `i `uc ]
+[; ;main.c: 277: putrsXLCD("     ALARME     ");
+"277
+[e ( _putrsXLCD (1 :s 6C ]
+[; ;main.c: 278: SetDDRamAddr(0x40);
+"278
+[e ( _SetDDRamAddr (1 -> -> 64 `i `uc ]
+[; ;main.c: 279: putrsXLCD("     ");
+"279
+[e ( _putrsXLCD (1 :s 7C ]
+[; ;main.c: 280: putrsXLCD(horarioDespertador);
+"280
+[e ( _putrsXLCD (1 -> &U _horarioDespertador `*Cuc ]
+[; ;main.c: 281: putrsXLCD("      ");
+"281
+[e ( _putrsXLCD (1 :s 8C ]
+[; ;main.c: 282: break;
+"282
+[e $U 446  ]
+"283
+}
 [; ;main.c: 283: }
+[e $U 446  ]
+"246
+[e :U 447 ]
+[e [\ _tela_atual , $ -> -> 0 `i `uc 448
+ , $ -> -> 1 `i `uc 449
+ , $ -> -> 2 `i `uc 452
+ 446 ]
+"283
+[e :U 446 ]
 [; ;main.c: 284: }
-[; ;main.c: 286: if(botaoMin){
+"284
+[e :UE 443 ]
+}
 "286
-[e $ ! != -> _botaoMin `i -> -> -> 0 `i `uc `i 454  ]
+[v _setaDespertador `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 287: Delay10KTCYx(180);
+[; ;main.c: 286: void setaDespertador(){
+[e :U _setaDespertador ]
+[f ]
+[; ;main.c: 287: botaoHora = PORTCbits.RC1;
 "287
-[e ( _Delay10KTCYx (1 -> -> 180 `i `uc ]
-[; ;main.c: 289: horarioDespertador[4]++;
+[e = _botaoHora . . _PORTCbits 0 1 ]
+[; ;main.c: 288: botaoMin = PORTCbits.RC2;
+"288
+[e = _botaoMin . . _PORTCbits 0 2 ]
+[; ;main.c: 289: if(botaoHora){
 "289
-[e ++ *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 290: if(horarioDespertador[4]>'9'){
-"290
-[e $ ! > -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 455  ]
+[e $ ! != -> _botaoHora `i -> -> -> 0 `i `uc `i 454  ]
 {
-[; ;main.c: 291: horarioDespertador[4]='0';
-"291
-[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 292: horarioDespertador[3]++;
+[; ;main.c: 290: Delay10KTCYx(180);
+"290
+[e ( _Delay10KTCYx (1 -> -> 180 `i `uc ]
+[; ;main.c: 292: horarioDespertador[1]++;
 "292
-[e ++ *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
+[e ++ *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 293: if(horarioDespertador[1]>'9'){
+"293
+[e $ ! > -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 455  ]
+{
+[; ;main.c: 294: horarioDespertador[1] ='0';
 "294
+[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 295: horarioDespertador[0]++;
+"295
+[e ++ *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
+"296
 }
 [e :U 455 ]
-[; ;main.c: 294: }
-[; ;main.c: 295: if(horarioDespertador[3] == '5' && horarioDespertador[4] > '9'){
-"295
-[e $ ! && == -> *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 53 `ui > -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 456  ]
-{
-[; ;main.c: 296: horarioDespertador[4] ='0';
-"296
-[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 297: horarioDespertador[3] ='0';
+[; ;main.c: 296: }
+[; ;main.c: 297: if(horarioDespertador[0] == '2' && horarioDespertador[1] >'3'){
 "297
-[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[e $ ! && == -> *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 50 `ui > -> *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 51 `ui 456  ]
+{
+[; ;main.c: 298: horarioDespertador[1] ='0';
 "298
+[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 299: horarioDespertador[0] ='0';
+"299
+[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+"300
 }
 [e :U 456 ]
-[; ;main.c: 298: }
-[; ;main.c: 299: atualiza_Tela(0);
-"299
+[; ;main.c: 300: }
+[; ;main.c: 302: atualiza_Tela(0);
+"302
 [e ( _atualiza_Tela (1 -> -> 0 `i `uc ]
-[; ;main.c: 300: while(botaoMin){
-"300
+[; ;main.c: 303: while(botaoHora){
+"303
 [e $U 457  ]
 [e :U 458 ]
 {
-[; ;main.c: 301: botaoMin = PORTCbits.RC2;
-"301
-[e = _botaoMin . . _PORTCbits 0 2 ]
-"302
+[; ;main.c: 304: botaoHora = PORTCbits.RC1;
+"304
+[e = _botaoHora . . _PORTCbits 0 1 ]
+"305
 }
 [e :U 457 ]
-"300
-[e $ != -> _botaoMin `i -> -> -> 0 `i `uc `i 458  ]
-[e :U 459 ]
 "303
+[e $ != -> _botaoHora `i -> -> -> 0 `i `uc `i 458  ]
+[e :U 459 ]
+"306
 }
 [e :U 454 ]
-[; ;main.c: 302: }
-[; ;main.c: 303: }
 [; ;main.c: 305: }
-"305
-[e :UE 447 ]
-}
-"307
-[v _checaRX `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 307: void checaRX(){
-[e :U _checaRX ]
-[f ]
+[; ;main.c: 306: }
+[; ;main.c: 308: if(botaoMin){
 "308
-[v _i `uc ~T0 @X0 1 a ]
-[; ;main.c: 308: char i=0;
-[e = _i -> -> 0 `i `uc ]
-[; ;main.c: 309: if(i<7)
+[e $ ! != -> _botaoMin `i -> -> -> 0 `i `uc `i 460  ]
+{
+[; ;main.c: 309: Delay10KTCYx(180);
 "309
-[e $ ! < -> _i `i -> 7 `i 461  ]
-[; ;main.c: 310: {
-"310
-{
-[; ;main.c: 311: while(!RCIF);
+[e ( _Delay10KTCYx (1 -> -> 180 `i `uc ]
+[; ;main.c: 311: horarioDespertador[4]++;
 "311
-[e $U 462  ]
-[e :U 463 ]
-[e :U 462 ]
-[e $ ! _RCIF 463  ]
-[e :U 464 ]
-[; ;main.c: 312: BUFFCOM[i]= RCREG;
+[e ++ *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 312: if(horarioDespertador[4]>'9'){
 "312
-[e = *U + &U _BUFFCOM * -> _i `ux -> -> # *U &U _BUFFCOM `ui `ux _RCREG ]
-[; ;main.c: 314: i++;
+[e $ ! > -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 461  ]
+{
+[; ;main.c: 313: horarioDespertador[4]='0';
+"313
+[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 314: horarioDespertador[3]++;
 "314
-[e ++ _i -> -> 1 `i `uc ]
-"315
-}
-[; ;main.c: 315: }else
-[e $U 465  ]
-[e :U 461 ]
-[; ;main.c: 316: {
+[e ++ *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 1 `i `uc ]
 "316
-{
-[; ;main.c: 317: PIR1bits.RCIF = 0;
+}
+[e :U 461 ]
+[; ;main.c: 316: }
+[; ;main.c: 317: if(horarioDespertador[3] == '5' && horarioDespertador[4] > '9'){
 "317
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 318: i=0;
-"318
-[e = _i -> -> 0 `i `uc ]
-[; ;main.c: 319: estado = 1;
-"319
-[e = _estado -> -> 1 `i `uc ]
-"321
-}
-[e :U 465 ]
-[; ;main.c: 321: }
-[; ;main.c: 322: }
-"322
-[e :UE 460 ]
-}
-"326
-[v _crc16 `(us ~T0 @X0 1 ef2`*uc`us ]
-"327
+[e $ ! && == -> *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 53 `ui > -> *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux `ui -> 57 `ui 462  ]
 {
-[; ;main.c: 326: unsigned short crc16(char *data_p, unsigned short length)
-[; ;main.c: 327: {
+[; ;main.c: 318: horarioDespertador[4] ='0';
+"318
+[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 319: horarioDespertador[3] ='0';
+"319
+[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+"320
+}
+[e :U 462 ]
+[; ;main.c: 320: }
+[; ;main.c: 321: atualiza_Tela(0);
+"321
+[e ( _atualiza_Tela (1 -> -> 0 `i `uc ]
+[; ;main.c: 322: while(botaoMin){
+"322
+[e $U 463  ]
+[e :U 464 ]
+{
+[; ;main.c: 323: botaoMin = PORTCbits.RC2;
+"323
+[e = _botaoMin . . _PORTCbits 0 2 ]
+"324
+}
+[e :U 463 ]
+"322
+[e $ != -> _botaoMin `i -> -> -> 0 `i `uc `i 464  ]
+[e :U 465 ]
+"325
+}
+[e :U 460 ]
+[; ;main.c: 324: }
+[; ;main.c: 325: }
+[; ;main.c: 327: }
+"327
+[e :UE 453 ]
+}
+"332
+[v _crc16 `(us ~T0 @X0 1 ef2`*uc`us ]
+"333
+{
+[; ;main.c: 332: unsigned short crc16(char *data_p, unsigned short length)
+[; ;main.c: 333: {
 [e :U _crc16 ]
-"326
+"332
 [v _data_p `*uc ~T0 @X0 1 r1 ]
 [v _length `us ~T0 @X0 1 r2 ]
-"327
-[f ]
-"328
-[v _i `uc ~T0 @X0 1 a ]
-"329
-[v _data `ui ~T0 @X0 1 a ]
-"330
-[v _crc `ui ~T0 @X0 1 a ]
-[; ;main.c: 328: unsigned char i;
-[; ;main.c: 329: unsigned int data;
-[; ;main.c: 330: unsigned int crc = 0xffff;
-[e = _crc -> 65535 `ui ]
-[; ;main.c: 332: if (length == 0)
-"332
-[e $ ! == -> _length `ui -> -> 0 `i `ui 467  ]
-[; ;main.c: 333: return (~crc);
 "333
+[f ]
+[v _i `uc ~T0 @X0 1 a ]
+"335
+[v _data `ui ~T0 @X0 1 a ]
+"336
+[v _crc `ui ~T0 @X0 1 a ]
+[; ;main.c: 334: unsigned char i;
+[; ;main.c: 335: unsigned int data;
+[; ;main.c: 336: unsigned int crc = 0xffff;
+[e = _crc -> 65535 `ui ]
+[; ;main.c: 338: if (length == 0)
+"338
+[e $ ! == -> _length `ui -> -> 0 `i `ui 467  ]
+[; ;main.c: 339: return (~crc);
+"339
 [e ) -> ~ _crc `us ]
 [e $UE 466  ]
 [e :U 467 ]
-[; ;main.c: 335: do
-"335
+[; ;main.c: 341: do
+"341
 [e :U 470 ]
-[; ;main.c: 336: {
-"336
+[; ;main.c: 342: {
+"342
 {
-[; ;main.c: 337: for (i=0, data=(unsigned int)0xff & *data_p++;
-"337
+[; ;main.c: 343: for (i=0, data=(unsigned int)0xff & *data_p++;
+"343
 {
 [e ; = _i -> -> 0 `i `uc = _data & -> -> 255 `i `ui -> *U ++ _data_p * -> -> 1 `i `x -> -> # *U _data_p `i `x `ui ]
-[; ;main.c: 338: i < 8;
-[; ;main.c: 339: i++, data >>= 1)
+[; ;main.c: 344: i < 8;
+[; ;main.c: 345: i++, data >>= 1)
 [e $ < -> _i `i -> 8 `i 471  ]
 [e $U 472  ]
-"340
+"346
 [e :U 471 ]
-[; ;main.c: 340: {
+[; ;main.c: 346: {
 {
-[; ;main.c: 341: if ((crc & 0x0001) ^ (data & 0x0001))
-"341
+[; ;main.c: 347: if ((crc & 0x0001) ^ (data & 0x0001))
+"347
 [e $ ! != ^ & _crc -> -> 1 `i `ui & _data -> -> 1 `i `ui -> -> 0 `i `ui 474  ]
-[; ;main.c: 342: crc = (crc >> 1) ^ 0x8408;
-"342
+[; ;main.c: 348: crc = (crc >> 1) ^ 0x8408;
+"348
 [e = _crc ^ >> _crc -> 1 `i -> 33800 `ui ]
 [e $U 475  ]
-"343
+"349
 [e :U 474 ]
-[; ;main.c: 343: else crc >>= 1;
+[; ;main.c: 349: else crc >>= 1;
 [e =>> _crc -> 1 `i ]
 [e :U 475 ]
-"344
-}
-"339
-[e ; ++ _i -> -> 1 `i `uc =>> _data -> 1 `i ]
-"338
-[e $ < -> _i `i -> 8 `i 471  ]
-[e :U 472 ]
-"344
+"350
 }
 "345
+[e ; ++ _i -> -> 1 `i `uc =>> _data -> 1 `i ]
+"344
+[e $ < -> _i `i -> 8 `i 471  ]
+[e :U 472 ]
+"350
 }
-[; ;main.c: 344: }
-[; ;main.c: 345: } while (--length);
+"351
+}
+[; ;main.c: 350: }
+[; ;main.c: 351: } while (--length);
 [e $ != -> =- _length -> -> 1 `i `us `ui -> -> -> 0 `i `us `ui 470  ]
 [e :U 469 ]
-[; ;main.c: 347: crc = ~crc;
-"347
+[; ;main.c: 353: crc = ~crc;
+"353
 [e = _crc ~ _crc ]
-[; ;main.c: 348: data = crc;
-"348
+[; ;main.c: 354: data = crc;
+"354
 [e = _data _crc ]
-[; ;main.c: 349: crc = (crc << 8) | (data >> 8 & 0xff);
-"349
+[; ;main.c: 355: crc = (crc << 8) | (data >> 8 & 0xff);
+"355
 [e = _crc | << _crc -> 8 `i & >> _data -> 8 `i -> -> 255 `i `ui ]
-[; ;main.c: 351: return (crc);
-"351
+[; ;main.c: 357: return (crc);
+"357
 [e ) -> _crc `us ]
 [e $UE 466  ]
-[; ;main.c: 352: }
-"352
+[; ;main.c: 358: }
+"358
 [e :UE 466 ]
 }
-"354
+"360
 [v _tx_data `(v ~T0 @X0 1 ef ]
-"355
+"361
 {
-[; ;main.c: 354: void tx_data()
-[; ;main.c: 355: {
+[; ;main.c: 360: void tx_data()
+[; ;main.c: 361: {
 [e :U _tx_data ]
 [f ]
 [v _cont `i ~T0 @X0 1 a ]
-[; ;main.c: 356: int cont;
-[; ;main.c: 358: for(cont=0;cont<7;cont++)
-"358
+[; ;main.c: 362: int cont;
+[; ;main.c: 364: for(cont=0;cont<7;cont++)
+"364
 {
 [e = _cont -> 0 `i ]
 [e $ < _cont -> 7 `i 477  ]
 [e $U 478  ]
-"359
+"365
 [e :U 477 ]
-[; ;main.c: 359: {
+[; ;main.c: 365: {
 {
-[; ;main.c: 360: while(!TXIF);
-"360
+[; ;main.c: 366: while(!TXIF);
+"366
 [e $U 480  ]
 [e :U 481 ]
 [e :U 480 ]
 [e $ ! _TXIF 481  ]
 [e :U 482 ]
-[; ;main.c: 361: TXREG = BUFFRESP[cont];
-"361
+[; ;main.c: 367: TXREG = BUFFRESP[cont];
+"367
 [e = _TXREG *U + &U _BUFFRESP * -> -> _cont `ui `ux -> -> # *U &U _BUFFRESP `ui `ux ]
-"362
+"368
 }
-"358
+"364
 [e ++ _cont -> 1 `i ]
 [e $ < _cont -> 7 `i 477  ]
 [e :U 478 ]
-"362
+"368
 }
-[; ;main.c: 362: }
-[; ;main.c: 364: estado = 0;
-"364
+[; ;main.c: 368: }
+[; ;main.c: 370: estado = 0;
+"370
 [e = _estado -> -> 0 `i `uc ]
-[; ;main.c: 365: }
-"365
+[; ;main.c: 371: }
+"371
 [e :UE 476 ]
 }
-"367
+"373
 [v _enviaByte `(v ~T0 @X0 1 ef1`uc ]
-"368
+"374
 {
-[; ;main.c: 367: void enviaByte(char BYTE)
-[; ;main.c: 368: {
+[; ;main.c: 373: void enviaByte(char BYTE)
+[; ;main.c: 374: {
 [e :U _enviaByte ]
 [v _BYTE `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 370: while(!TXIF);
-"370
+[; ;main.c: 376: while(!TXIF);
+"376
 [e $U 484  ]
 [e :U 485 ]
 [e :U 484 ]
 [e $ ! _TXIF 485  ]
 [e :U 486 ]
-[; ;main.c: 371: TXREG = BYTE;
-"371
+[; ;main.c: 377: TXREG = BYTE;
+"377
 [e = _TXREG _BYTE ]
-[; ;main.c: 373: if(BYTE==0x05){
-"373
+[; ;main.c: 379: if(BYTE==0x05){
+"379
 [e $ ! == -> _BYTE `i -> 5 `i 487  ]
 {
-[; ;main.c: 374: estado = 2;
-"374
+[; ;main.c: 380: estado = 2;
+"380
 [e = _estado -> -> 2 `i `uc ]
-"375
+"381
 }
-[; ;main.c: 375: }
+[; ;main.c: 381: }
 [e $U 488  ]
-"376
+"382
 [e :U 487 ]
-[; ;main.c: 376: else{
+[; ;main.c: 382: else{
 {
-[; ;main.c: 377: estado = 0;
-"377
+[; ;main.c: 383: estado = 0;
+"383
 [e = _estado -> -> 0 `i `uc ]
-"378
+"384
 }
 [e :U 488 ]
-[; ;main.c: 378: }
-[; ;main.c: 380: }
-"380
+[; ;main.c: 384: }
+[; ;main.c: 386: }
+"386
 [e :UE 483 ]
 }
-"381
+"387
 [v _calculaCRCBUFFRESP `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 381: void calculaCRCBUFFRESP(){
+[; ;main.c: 387: void calculaCRCBUFFRESP(){
 [e :U _calculaCRCBUFFRESP ]
 [f ]
-"383
+"389
 [v _crc `us ~T0 @X0 1 a ]
-[; ;main.c: 383: unsigned short crc;
-[; ;main.c: 385: crc = crc16(BUFFRESP,5);
-"385
-[e = _crc ( _crc16 (2 , &U _BUFFRESP -> -> 5 `i `us ]
-[; ;main.c: 387: BUFFRESP[5] = crc >> 8;
-"387
-[e = *U + &U _BUFFRESP * -> -> -> 5 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> >> -> _crc `ui -> 8 `i `uc ]
-[; ;main.c: 388: BUFFRESP[6] = crc & 0xFF;
-"388
-[e = *U + &U _BUFFRESP * -> -> -> 6 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> & -> _crc `ui -> -> 255 `i `ui `uc ]
-[; ;main.c: 390: estado = 3;
-"390
-[e = _estado -> -> 3 `i `uc ]
-[; ;main.c: 391: }
+[; ;main.c: 389: unsigned short crc;
+[; ;main.c: 391: crc = crc16(BUFFRESP,5);
 "391
+[e = _crc ( _crc16 (2 , &U _BUFFRESP -> -> 5 `i `us ]
+[; ;main.c: 393: BUFFRESP[5] = crc >> 8;
+"393
+[e = *U + &U _BUFFRESP * -> -> -> 5 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> >> -> _crc `ui -> 8 `i `uc ]
+[; ;main.c: 394: BUFFRESP[6] = crc & 0xFF;
+"394
+[e = *U + &U _BUFFRESP * -> -> -> 6 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> & -> _crc `ui -> -> 255 `i `ui `uc ]
+[; ;main.c: 396: estado = 3;
+"396
+[e = _estado -> -> 3 `i `uc ]
+[; ;main.c: 397: }
+"397
 [e :UE 489 ]
 }
-"393
+"399
 [v _trataComando `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 393: void trataComando(){
+[; ;main.c: 399: void trataComando(){
 [e :U _trataComando ]
 [f ]
-[; ;main.c: 396: switch(BUFFCOM[0])
-"396
+[; ;main.c: 402: switch(BUFFCOM[0])
+"402
 [e $U 492  ]
-[; ;main.c: 397: {
-"397
+[; ;main.c: 403: {
+"403
 {
-[; ;main.c: 398: case 1:
-"398
+[; ;main.c: 404: case 1:
+"404
 [e :U 493 ]
-[; ;main.c: 400: BUFFRESP[0] = BUFFCOM[0];
-"400
+[; ;main.c: 406: BUFFRESP[0] = BUFFCOM[0];
+"406
 [e = *U + &U _BUFFRESP * -> -> -> 0 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _BUFFCOM * -> -> -> 0 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
-[; ;main.c: 401: BUFFRESP[1] = BUFFCOM[1];
-"401
-[e = *U + &U _BUFFRESP * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _BUFFCOM * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
-[; ;main.c: 404: switch(BUFFCOM[1])
-"404
-[e $U 495  ]
-[; ;main.c: 405: {
-"405
-{
-[; ;main.c: 407: case 0:
+[; ;main.c: 407: BUFFRESP[1] = BUFFCOM[1];
 "407
-[e :U 496 ]
-[; ;main.c: 409: BUFFRESP[2] = versao[1];
-"409
-[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _versao * -> -> -> 1 `i `ui `ux -> -> # *U &U _versao `ui `ux ]
-[; ;main.c: 410: BUFFRESP[3] = versao[4];
+[e = *U + &U _BUFFRESP * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _BUFFCOM * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
+[; ;main.c: 410: switch(BUFFCOM[1])
 "410
-[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _versao * -> -> -> 4 `i `ui `ux -> -> # *U &U _versao `ui `ux ]
-[; ;main.c: 413: BUFFRESP[4] = 0xFF;
+[e $U 495  ]
+[; ;main.c: 411: {
+"411
+{
+[; ;main.c: 413: case 0:
 "413
-[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> -> 255 `i `uc ]
-[; ;main.c: 414: break;
-"414
-[e $U 494  ]
-[; ;main.c: 416: case 1:
+[e :U 496 ]
+[; ;main.c: 415: BUFFRESP[2] = versao[1];
+"415
+[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _versao * -> -> -> 1 `i `ui `ux -> -> # *U &U _versao `ui `ux ]
+[; ;main.c: 416: BUFFRESP[3] = versao[4];
 "416
-[e :U 497 ]
-[; ;main.c: 417: pegaHoraData[0] = data_horario.horario[0];
-"417
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 418: pegaHoraData[1] = data_horario.horario[1];
-"418
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 419: BUFFRESP[2] = atoi(pegaHoraData);
+[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux *U + &U _versao * -> -> -> 4 `i `ui `ux -> -> # *U &U _versao `ui `ux ]
+[; ;main.c: 419: BUFFRESP[4] = 0xFF;
 "419
-[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 420: pegaHoraData[0] = data_horario.horario[3];
-"420
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 421: pegaHoraData[1] = data_horario.horario[4];
-"421
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 422: BUFFRESP[3] = atoi(pegaHoraData);
-"422
-[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 423: pegaHoraData[0] = data_horario.horario[6];
-"423
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 424: pegaHoraData[1] = data_horario.horario[7];
-"424
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
-[; ;main.c: 425: BUFFRESP[4] = atoi(pegaHoraData);
-"425
-[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 426: break;
-"426
-[e $U 494  ]
-[; ;main.c: 428: case 2:
-"428
-[e :U 498 ]
-[; ;main.c: 429: pegaHoraData[0] = data_horario.data[0];
-"429
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
-[; ;main.c: 430: pegaHoraData[1] = data_horario.data[1];
-"430
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
-[; ;main.c: 431: BUFFRESP[2] = atoi(pegaHoraData);
-"431
-[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 432: pegaHoraData[0] = data_horario.data[3];
-"432
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
-[; ;main.c: 433: pegaHoraData[1] = data_horario.data[4];
-"433
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
-[; ;main.c: 434: BUFFRESP[3] = atoi(pegaHoraData);
-"434
-[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 435: BUFFRESP[4] = data_horario.ano - 2000;
-"435
-[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> - . _data_horario 4 -> 2000 `i `uc ]
-[; ;main.c: 437: break;
-"437
-[e $U 494  ]
-[; ;main.c: 438: case 3:
-"438
-[e :U 499 ]
-[; ;main.c: 439: pegaHoraData[0] = horarioDespertador[0];
-"439
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
-[; ;main.c: 440: pegaHoraData[1] = horarioDespertador[1];
-"440
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
-[; ;main.c: 441: BUFFRESP[2] = atoi(pegaHoraData);
-"441
-[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 442: pegaHoraData[0] = horarioDespertador[3];
-"442
-[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
-[; ;main.c: 443: pegaHoraData[1] = horarioDespertador[4];
-"443
-[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
-[; ;main.c: 444: BUFFRESP[3] = atoi(pegaHoraData);
-"444
-[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
-[; ;main.c: 445: BUFFRESP[4] = 0xFF;
-"445
 [e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> -> 255 `i `uc ]
-[; ;main.c: 446: break;
+[; ;main.c: 420: break;
+"420
+[e $U 494  ]
+[; ;main.c: 422: case 1:
+"422
+[e :U 497 ]
+[; ;main.c: 423: pegaHoraData[0] = data_horario.horario[0];
+"423
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 424: pegaHoraData[1] = data_horario.horario[1];
+"424
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 425: BUFFRESP[2] = atoi(pegaHoraData);
+"425
+[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 426: pegaHoraData[0] = data_horario.horario[3];
+"426
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 427: pegaHoraData[1] = data_horario.horario[4];
+"427
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 428: BUFFRESP[3] = atoi(pegaHoraData);
+"428
+[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 429: pegaHoraData[0] = data_horario.horario[6];
+"429
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 430: pegaHoraData[1] = data_horario.horario[7];
+"430
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux ]
+[; ;main.c: 431: BUFFRESP[4] = atoi(pegaHoraData);
+"431
+[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 432: break;
+"432
+[e $U 494  ]
+[; ;main.c: 434: case 2:
+"434
+[e :U 498 ]
+[; ;main.c: 435: pegaHoraData[0] = data_horario.data[0];
+"435
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
+[; ;main.c: 436: pegaHoraData[1] = data_horario.data[1];
+"436
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
+[; ;main.c: 437: BUFFRESP[2] = atoi(pegaHoraData);
+"437
+[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 438: pegaHoraData[0] = data_horario.data[3];
+"438
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
+[; ;main.c: 439: pegaHoraData[1] = data_horario.data[4];
+"439
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux ]
+[; ;main.c: 440: BUFFRESP[3] = atoi(pegaHoraData);
+"440
+[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 441: BUFFRESP[4] = data_horario.ano - 2000;
+"441
+[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> - . _data_horario 4 -> 2000 `i `uc ]
+[; ;main.c: 443: break;
+"443
+[e $U 494  ]
+[; ;main.c: 444: case 3:
+"444
+[e :U 499 ]
+[; ;main.c: 445: pegaHoraData[0] = horarioDespertador[0];
+"445
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
+[; ;main.c: 446: pegaHoraData[1] = horarioDespertador[1];
 "446
-[e $U 494  ]
-[; ;main.c: 448: default:
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
+[; ;main.c: 447: BUFFRESP[2] = atoi(pegaHoraData);
+"447
+[e = *U + &U _BUFFRESP * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 448: pegaHoraData[0] = horarioDespertador[3];
 "448
-[e :U 500 ]
-[; ;main.c: 449: break;
+[e = *U + &U _pegaHoraData * -> -> -> 0 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
+[; ;main.c: 449: pegaHoraData[1] = horarioDespertador[4];
 "449
-[e $U 494  ]
+[e = *U + &U _pegaHoraData * -> -> -> 1 `i `ui `ux -> -> # *U &U _pegaHoraData `ui `ux *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux ]
+[; ;main.c: 450: BUFFRESP[3] = atoi(pegaHoraData);
+"450
+[e = *U + &U _BUFFRESP * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> ( _atoi (1 -> &U _pegaHoraData `*Cuc `uc ]
+[; ;main.c: 451: BUFFRESP[4] = 0xFF;
 "451
-}
-[; ;main.c: 451: }
+[e = *U + &U _BUFFRESP * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFRESP `ui `ux -> -> 255 `i `uc ]
+[; ;main.c: 452: break;
+"452
 [e $U 494  ]
-"404
+[; ;main.c: 454: default:
+"454
+[e :U 500 ]
+[; ;main.c: 455: break;
+"455
+[e $U 494  ]
+"457
+}
+[; ;main.c: 457: }
+[e $U 494  ]
+"410
 [e :U 495 ]
 [e [\ *U + &U _BUFFCOM * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux , $ -> -> 0 `i `uc 496
  , $ -> -> 1 `i `uc 497
  , $ -> -> 2 `i `uc 498
  , $ -> -> 3 `i `uc 499
  500 ]
-"451
+"457
 [e :U 494 ]
-[; ;main.c: 453: break;
-"453
+[; ;main.c: 459: break;
+"459
 [e $U 491  ]
-[; ;main.c: 456: case 2:
-"456
+[; ;main.c: 462: case 2:
+"462
 [e :U 501 ]
-[; ;main.c: 460: memcpy(BUFFRESP,BUFFCOM,strlen(BUFFCOM));
-"460
+[; ;main.c: 466: memcpy(BUFFRESP,BUFFCOM,strlen(BUFFCOM));
+"466
 [e ( _memcpy (3 , , -> &U _BUFFRESP `*v -> &U _BUFFCOM `*Cv ( _strlen (1 -> &U _BUFFCOM `*Cuc ]
-[; ;main.c: 464: switch(BUFFCOM[1])
-"464
-[e $U 503  ]
-[; ;main.c: 465: {
-"465
-{
-[; ;main.c: 467: case 0:
-"467
-[e :U 504 ]
-[; ;main.c: 469: versao[1] = BUFFCOM[2];
-"469
-[e = *U + &U _versao * -> -> -> 1 `i `ui `ux -> -> # *U &U _versao `ui `ux *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
-[; ;main.c: 470: versao[4] = BUFFCOM[3];
+[; ;main.c: 470: switch(BUFFCOM[1])
 "470
-[e = *U + &U _versao * -> -> -> 4 `i `ui `ux -> -> # *U &U _versao `ui `ux *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
-[; ;main.c: 471: break;
+[e $U 503  ]
+[; ;main.c: 471: {
 "471
-[e $U 502  ]
-[; ;main.c: 473: case 1:
+{
+[; ;main.c: 473: case 0:
 "473
-[e :U 505 ]
-[; ;main.c: 474: data_horario.data[0] = ((BUFFCOM[2]/10) + '0');
-"474
-[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 475: data_horario.data[1] = ((BUFFCOM[2]%10) + '0');
+[e :U 504 ]
+[; ;main.c: 475: versao[1] = BUFFCOM[2];
 "475
-[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 476: data_horario.data[3] = ((BUFFCOM[3]/10) + '0');
+[e = *U + &U _versao * -> -> -> 1 `i `ui `ux -> -> # *U &U _versao `ui `ux *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
+[; ;main.c: 476: versao[4] = BUFFCOM[3];
 "476
-[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 477: data_horario.data[4] = ((BUFFCOM[3]%10) + '0');
+[e = *U + &U _versao * -> -> -> 4 `i `ui `ux -> -> # *U &U _versao `ui `ux *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux ]
+[; ;main.c: 477: break;
 "477
-[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 478: data_horario.ano = BUFFCOM[4] + 2000;
-"478
-[e = . _data_horario 4 + -> *U + &U _BUFFCOM * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 2000 `i ]
-[; ;main.c: 480: break;
+[e $U 502  ]
+[; ;main.c: 479: case 1:
+"479
+[e :U 505 ]
+[; ;main.c: 480: data_horario.data[0] = ((BUFFCOM[2]/10) + '0');
 "480
-[e $U 502  ]
-[; ;main.c: 482: case 2:
-"482
-[e :U 506 ]
-[; ;main.c: 483: data_horario.data[0] = ((BUFFCOM[2]/10) + '0');
-"483
 [e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 484: data_horario.data[1] = ((BUFFCOM[2]%10) + '0');
-"484
+[; ;main.c: 481: data_horario.data[1] = ((BUFFCOM[2]%10) + '0');
+"481
 [e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 485: data_horario.data[3] = ((BUFFCOM[3]/10) + '0');
-"485
+[; ;main.c: 482: data_horario.data[3] = ((BUFFCOM[3]/10) + '0');
+"482
 [e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 486: data_horario.data[4] = ((BUFFCOM[3]%10) + '0');
-"486
+[; ;main.c: 483: data_horario.data[4] = ((BUFFCOM[3]%10) + '0');
+"483
 [e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 487: data_horario.ano = BUFFCOM[4]+2000;
-"487
+[; ;main.c: 484: data_horario.ano = BUFFCOM[4] + 2000;
+"484
 [e = . _data_horario 4 + -> *U + &U _BUFFCOM * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 2000 `i ]
-[; ;main.c: 488: break;
-"488
+[; ;main.c: 486: break;
+"486
 [e $U 502  ]
-[; ;main.c: 489: case 3:
+[; ;main.c: 488: case 2:
+"488
+[e :U 506 ]
+[; ;main.c: 489: data_horario.data[0] = ((BUFFCOM[2]/10) + '0');
 "489
-[e :U 507 ]
-[; ;main.c: 490: horarioDespertador[0] = ((BUFFCOM[2]/10) + '0');
+[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 490: data_horario.data[1] = ((BUFFCOM[2]%10) + '0');
 "490
-[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 491: horarioDespertador[1] = ((BUFFCOM[2]%10) + '0');
+[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 491: data_horario.data[3] = ((BUFFCOM[3]/10) + '0');
 "491
-[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 492: horarioDespertador[3] = ((BUFFCOM[3]/10) + '0');
+[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 492: data_horario.data[4] = ((BUFFCOM[3]%10) + '0');
 "492
-[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
-[; ;main.c: 493: horarioDespertador[4] = ((BUFFCOM[3]%10) + '0');
+[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 493: data_horario.ano = BUFFCOM[4]+2000;
 "493
-[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[e = . _data_horario 4 + -> *U + &U _BUFFCOM * -> -> -> 4 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 2000 `i ]
 [; ;main.c: 494: break;
 "494
 [e $U 502  ]
-[; ;main.c: 495: default:
+[; ;main.c: 495: case 3:
 "495
-[e :U 508 ]
-[; ;main.c: 496: break;
+[e :U 507 ]
+[; ;main.c: 496: horarioDespertador[0] = ((BUFFCOM[2]/10) + '0');
 "496
-[e $U 502  ]
+[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 497: horarioDespertador[1] = ((BUFFCOM[2]%10) + '0');
+"497
+[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 2 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 498: horarioDespertador[3] = ((BUFFCOM[3]/10) + '0');
 "498
-}
-[; ;main.c: 498: }
+[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> / -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 499: horarioDespertador[4] = ((BUFFCOM[3]%10) + '0');
+"499
+[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> + -> % -> *U + &U _BUFFCOM * -> -> -> 3 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> 10 `i `ui -> 48 `ui `uc ]
+[; ;main.c: 500: break;
+"500
 [e $U 502  ]
-"464
+[; ;main.c: 501: default:
+"501
+[e :U 508 ]
+[; ;main.c: 502: break;
+"502
+[e $U 502  ]
+"504
+}
+[; ;main.c: 504: }
+[e $U 502  ]
+"470
 [e :U 503 ]
 [e [\ *U + &U _BUFFCOM * -> -> -> 1 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux , $ -> -> 0 `i `uc 504
  , $ -> -> 1 `i `uc 505
  , $ -> -> 2 `i `uc 506
  , $ -> -> 3 `i `uc 507
  508 ]
-"498
+"504
 [e :U 502 ]
-[; ;main.c: 501: break;
-"501
+[; ;main.c: 507: break;
+"507
 [e $U 491  ]
-"502
+"508
 }
-[; ;main.c: 502: }
+[; ;main.c: 508: }
 [e $U 491  ]
-"396
+"402
 [e :U 492 ]
 [e [\ *U + &U _BUFFCOM * -> -> -> 0 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux , $ -> -> 1 `i `uc 493
  , $ -> -> 2 `i `uc 501
  491 ]
-"502
+"508
 [e :U 491 ]
-[; ;main.c: 506: calculaCRCBUFFRESP();
-"506
+[; ;main.c: 512: calculaCRCBUFFRESP();
+"512
 [e ( _calculaCRCBUFFRESP ..  ]
-[; ;main.c: 507: }
-"507
+[; ;main.c: 513: }
+"513
 [e :UE 490 ]
 }
-"509
+"515
 [v _verificaCRCBUFFCOM `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 509: void verificaCRCBUFFCOM(){
+[; ;main.c: 515: void verificaCRCBUFFCOM(){
 [e :U _verificaCRCBUFFCOM ]
 [f ]
-"512
+"518
 [v _CRC_OK `uc ~T0 @X0 1 a ]
-[; ;main.c: 512: char CRC_OK =0;
+[; ;main.c: 518: char CRC_OK =0;
 [e = _CRC_OK -> -> 0 `i `uc ]
-"513
+"519
 [v _crc `us ~T0 @X0 1 a ]
-"514
+"520
 [v _crc1 `uc ~T0 @X0 1 a ]
 [v _crc2 `uc ~T0 @X0 1 a ]
-[; ;main.c: 513: unsigned short crc;
-[; ;main.c: 514: unsigned char crc1, crc2;
-[; ;main.c: 516: crc = crc16(BUFFCOM,5);
-"516
+[; ;main.c: 519: unsigned short crc;
+[; ;main.c: 520: unsigned char crc1, crc2;
+[; ;main.c: 522: crc = crc16(BUFFCOM,5);
+"522
 [e = _crc ( _crc16 (2 , &U _BUFFCOM -> -> 5 `i `us ]
-[; ;main.c: 517: crc1 = crc >> 8;
-"517
+[; ;main.c: 523: crc1 = crc >> 8;
+"523
 [e = _crc1 -> >> -> _crc `ui -> 8 `i `uc ]
-[; ;main.c: 518: crc2 = crc & 0xFF;
-"518
+[; ;main.c: 524: crc2 = crc & 0xFF;
+"524
 [e = _crc2 -> & -> _crc `ui -> -> 255 `i `ui `uc ]
-[; ;main.c: 520: if(BUFFCOM[5] == crc1 && BUFFCOM[6] == crc2){
-"520
+[; ;main.c: 526: if(BUFFCOM[5] == crc1 && BUFFCOM[6] == crc2){
+"526
 [e $ ! && == -> *U + &U _BUFFCOM * -> -> -> 5 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> _crc1 `i == -> *U + &U _BUFFCOM * -> -> -> 6 `i `ui `ux -> -> # *U &U _BUFFCOM `ui `ux `i -> _crc2 `i 510  ]
 {
-[; ;main.c: 521: CRC_OK = 1;
-"521
+[; ;main.c: 527: CRC_OK = 1;
+"527
 [e = _CRC_OK -> -> 1 `i `uc ]
-"522
+"528
 }
 [e :U 510 ]
-[; ;main.c: 522: }
-[; ;main.c: 527: if (CRC_OK == 1)
-"527
+[; ;main.c: 528: }
+[; ;main.c: 533: if (CRC_OK == 1)
+"533
 [e $ ! == -> _CRC_OK `i -> 1 `i 511  ]
-[; ;main.c: 528: {
-"528
-{
-[; ;main.c: 529: estado = 4;
-"529
-[e = _estado -> -> 4 `i `uc ]
-"530
-}
-[; ;main.c: 530: }
-[e $U 512  ]
-"531
-[e :U 511 ]
-[; ;main.c: 531: else{
-{
-[; ;main.c: 534: estado = 5;
+[; ;main.c: 534: {
 "534
-[e = _estado -> -> 5 `i `uc ]
+{
+[; ;main.c: 535: estado = 4;
+"535
+[e = _estado -> -> 4 `i `uc ]
 "536
 }
-[e :U 512 ]
 [; ;main.c: 536: }
-[; ;main.c: 538: }
-"538
+[e $U 512  ]
+"537
+[e :U 511 ]
+[; ;main.c: 537: else{
+{
+[; ;main.c: 540: estado = 5;
+"540
+[e = _estado -> -> 5 `i `uc ]
+"542
+}
+[e :U 512 ]
+[; ;main.c: 542: }
+[; ;main.c: 544: }
+"544
 [e :UE 509 ]
 }
-"540
+"546
 [v _maquinaEstado `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 540: void maquinaEstado(){
+[; ;main.c: 546: void maquinaEstado(){
 [e :U _maquinaEstado ]
 [f ]
-[; ;main.c: 542: switch(estado){
-"542
+[; ;main.c: 548: switch(estado){
+"548
 [e $U 515  ]
 {
-[; ;main.c: 544: case 1:
-"544
+[; ;main.c: 550: case 1:
+"550
 [e :U 516 ]
-[; ;main.c: 545: verificaCRCBUFFCOM();
-"545
-[e ( _verificaCRCBUFFCOM ..  ]
-[; ;main.c: 547: break;
-"547
-[e $U 514  ]
-[; ;main.c: 549: case 2:
-"549
-[e :U 517 ]
-[; ;main.c: 551: trataComando();
+[; ;main.c: 551: verificaCRCBUFFCOM();
 "551
-[e ( _trataComando ..  ]
+[e ( _verificaCRCBUFFCOM ..  ]
 [; ;main.c: 553: break;
 "553
 [e $U 514  ]
-[; ;main.c: 555: case 3:
+[; ;main.c: 555: case 2:
 "555
-[e :U 518 ]
-[; ;main.c: 556: tx_data();
-"556
-[e ( _tx_data ..  ]
-[; ;main.c: 557: break;
+[e :U 517 ]
+[; ;main.c: 557: trataComando();
 "557
-[e $U 514  ]
-[; ;main.c: 559: case 4:
+[e ( _trataComando ..  ]
+[; ;main.c: 559: break;
 "559
-[e :U 519 ]
-[; ;main.c: 560: enviaByte(0x05);
-"560
-[e ( _enviaByte (1 -> -> 5 `i `uc ]
-[; ;main.c: 562: break;
+[e $U 514  ]
+[; ;main.c: 561: case 3:
+"561
+[e :U 518 ]
+[; ;main.c: 562: tx_data();
 "562
+[e ( _tx_data ..  ]
+[; ;main.c: 563: break;
+"563
 [e $U 514  ]
-[; ;main.c: 564: case 5:
-"564
-[e :U 520 ]
-[; ;main.c: 565: enviaByte(0x15);
+[; ;main.c: 565: case 4:
 "565
-[e ( _enviaByte (1 -> -> 21 `i `uc ]
-[; ;main.c: 567: break;
-"567
+[e :U 519 ]
+[; ;main.c: 566: enviaByte(0x05);
+"566
+[e ( _enviaByte (1 -> -> 5 `i `uc ]
+[; ;main.c: 568: break;
+"568
 [e $U 514  ]
-[; ;main.c: 569: default:
-"569
-[e :U 521 ]
-[; ;main.c: 571: break;
+[; ;main.c: 570: case 5:
+"570
+[e :U 520 ]
+[; ;main.c: 571: enviaByte(0x15);
 "571
+[e ( _enviaByte (1 -> -> 21 `i `uc ]
+[; ;main.c: 573: break;
+"573
 [e $U 514  ]
-"574
+[; ;main.c: 575: default:
+"575
+[e :U 521 ]
+[; ;main.c: 577: break;
+"577
+[e $U 514  ]
+"580
 }
-[; ;main.c: 574: }
+[; ;main.c: 580: }
 [e $U 514  ]
-"542
+"548
 [e :U 515 ]
 [e [\ _estado , $ -> -> 1 `i `uc 516
  , $ -> -> 2 `i `uc 517
@@ -5878,253 +5876,256 @@ Version 3.2 HI-TECH Software Intermediate Code
  , $ -> -> 4 `i `uc 519
  , $ -> -> 5 `i `uc 520
  521 ]
-"574
+"580
 [e :U 514 ]
-[; ;main.c: 575: }
-"575
+[; ;main.c: 581: }
+"581
 [e :UE 513 ]
 }
-"578
+"584
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 578: void main(void) {
+[; ;main.c: 584: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 579: ADCON1 = 0x0F;
-"579
+[; ;main.c: 585: ADCON1 = 0x0F;
+"585
 [e = _ADCON1 -> -> 15 `i `uc ]
-[; ;main.c: 580: TRISB = 0x00;
-"580
+[; ;main.c: 586: TRISB = 0x00;
+"586
 [e = _TRISB -> -> 0 `i `uc ]
-[; ;main.c: 581: TRISD = 0x00;
-"581
+[; ;main.c: 587: TRISD = 0x00;
+"587
 [e = _TRISD -> -> 0 `i `uc ]
-[; ;main.c: 582: TRISC = 0x01;
-"582
+[; ;main.c: 588: TRISC = 0x01;
+"588
 [e = _TRISC -> -> 1 `i `uc ]
-[; ;main.c: 583: SPBRG=(((20000000/64)/9600)-1);
-"583
-[e = _SPBRG -> - / / -> 20000000 `l -> -> 64 `i `l -> -> 9600 `i `l -> -> 1 `i `l `uc ]
-[; ;main.c: 589: RCSTA = 0b10010000;
+[; ;main.c: 589: SPBRG=(((20000000/64)/9600)-1);
 "589
+[e = _SPBRG -> - / / -> 20000000 `l -> -> 64 `i `l -> -> 9600 `i `l -> -> 1 `i `l `uc ]
+[; ;main.c: 595: RCSTA = 0b10010000;
+"595
 [e = _RCSTA -> -> 144 `i `uc ]
-[; ;main.c: 590: TXSTA = 0b00100000;
-"590
-[e = _TXSTA -> -> 32 `i `uc ]
-[; ;main.c: 592: TRISCbits.RC6 = 0;
-"592
-[e = . . _TRISCbits 1 4 -> -> 0 `i `uc ]
-[; ;main.c: 593: TRISCbits.RC7 = 1;
-"593
-[e = . . _TRISCbits 1 5 -> -> 1 `i `uc ]
-[; ;main.c: 596: RCIF = 0;
+[; ;main.c: 596: TXSTA = 0b00100000;
 "596
-[e = _RCIF -> -> 0 `i `b ]
-[; ;main.c: 597: RCIP = 0;
-"597
-[e = _RCIP -> -> 0 `i `b ]
-[; ;main.c: 598: RCIE = 1;
+[e = _TXSTA -> -> 32 `i `uc ]
+[; ;main.c: 598: TRISCbits.RC6 = 0;
 "598
-[e = _RCIE -> -> 1 `i `b ]
-[; ;main.c: 599: PEIE = 1;
+[e = . . _TRISCbits 1 4 -> -> 0 `i `uc ]
+[; ;main.c: 599: TRISCbits.RC7 = 1;
 "599
-[e = _PEIE -> -> 1 `i `b ]
-"600
-[v _botao `uc ~T0 @X0 1 a ]
-[; ;main.c: 600: char botao;
-[; ;main.c: 604: data_horario.horario[0] = '2';
+[e = . . _TRISCbits 1 5 -> -> 1 `i `uc ]
+[; ;main.c: 602: RCIF = 0;
+"602
+[e = _RCIF -> -> 0 `i `b ]
+[; ;main.c: 603: RCIP = 0;
+"603
+[e = _RCIP -> -> 0 `i `b ]
+[; ;main.c: 604: RCIE = 1;
 "604
-[e = *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 50 `ui `uc ]
-[; ;main.c: 605: data_horario.horario[1] = '3';
+[e = _RCIE -> -> 1 `i `b ]
+[; ;main.c: 605: PEIE = 1;
 "605
-[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 51 `ui `uc ]
-[; ;main.c: 606: data_horario.horario[2] = ':';
+[e = _PEIE -> -> 1 `i `b ]
 "606
-[e = *U + &U . _data_horario 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 58 `ui `uc ]
-[; ;main.c: 607: data_horario.horario[3] = '5';
-"607
-[e = *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 53 `ui `uc ]
-[; ;main.c: 608: data_horario.horario[4] = '9';
-"608
-[e = *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 57 `ui `uc ]
-[; ;main.c: 609: data_horario.horario[5] = ':';
-"609
-[e = *U + &U . _data_horario 0 * -> -> -> 5 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 58 `ui `uc ]
-[; ;main.c: 610: data_horario.horario[6] = '5';
+[v _botao `uc ~T0 @X0 1 a ]
+[; ;main.c: 606: char botao;
+[; ;main.c: 610: data_horario.horario[0] = '2';
 "610
-[e = *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 53 `ui `uc ]
-[; ;main.c: 611: data_horario.horario[7] = '0';
+[e = *U + &U . _data_horario 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 50 `ui `uc ]
+[; ;main.c: 611: data_horario.horario[1] = '3';
 "611
-[e = *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 612: data_horario.horario[8] = '\0';
+[e = *U + &U . _data_horario 0 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 51 `ui `uc ]
+[; ;main.c: 612: data_horario.horario[2] = ':';
 "612
-[e = *U + &U . _data_horario 0 * -> -> -> 8 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 614: data_horario.data[0] = '3';
+[e = *U + &U . _data_horario 0 * -> -> -> 2 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 58 `ui `uc ]
+[; ;main.c: 613: data_horario.horario[3] = '5';
+"613
+[e = *U + &U . _data_horario 0 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 53 `ui `uc ]
+[; ;main.c: 614: data_horario.horario[4] = '9';
 "614
-[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 51 `ui `uc ]
-[; ;main.c: 615: data_horario.data[1] = '1';
+[e = *U + &U . _data_horario 0 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 57 `ui `uc ]
+[; ;main.c: 615: data_horario.horario[5] = ':';
 "615
-[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
-[; ;main.c: 616: data_horario.data[2] = '/';
+[e = *U + &U . _data_horario 0 * -> -> -> 5 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 58 `ui `uc ]
+[; ;main.c: 616: data_horario.horario[6] = '5';
 "616
-[e = *U + &U . _data_horario 1 * -> -> -> 2 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 47 `ui `uc ]
-[; ;main.c: 617: data_horario.data[3] = '1';
+[e = *U + &U . _data_horario 0 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 53 `ui `uc ]
+[; ;main.c: 617: data_horario.horario[7] = '0';
 "617
-[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
-[; ;main.c: 618: data_horario.data[4] = '2';
+[e = *U + &U . _data_horario 0 * -> -> -> 7 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 618: data_horario.horario[8] = '\0';
 "618
-[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 50 `ui `uc ]
-[; ;main.c: 619: data_horario.data[5] = '/';
-"619
-[e = *U + &U . _data_horario 1 * -> -> -> 5 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 47 `ui `uc ]
-[; ;main.c: 620: data_horario.data[6] = '\0';
+[e = *U + &U . _data_horario 0 * -> -> -> 8 `i `ui `ux -> -> # *U &U . _data_horario 0 `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 620: data_horario.data[0] = '3';
 "620
-[e = *U + &U . _data_horario 1 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 621: data_horario.ano = 2018;
+[e = *U + &U . _data_horario 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 51 `ui `uc ]
+[; ;main.c: 621: data_horario.data[1] = '1';
 "621
-[e = . _data_horario 4 -> 2018 `i ]
-[; ;main.c: 622: data_horario.dias = 31;
+[e = *U + &U . _data_horario 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
+[; ;main.c: 622: data_horario.data[2] = '/';
 "622
-[e = . _data_horario 2 -> -> 31 `i `uc ]
-[; ;main.c: 623: data_horario.mes_atual = 11;
+[e = *U + &U . _data_horario 1 * -> -> -> 2 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 47 `ui `uc ]
+[; ;main.c: 623: data_horario.data[3] = '1';
 "623
-[e = . _data_horario 3 -> -> 11 `i `uc ]
-[; ;main.c: 625: horarioDespertador[0] = '0';
+[e = *U + &U . _data_horario 1 * -> -> -> 3 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 49 `ui `uc ]
+[; ;main.c: 624: data_horario.data[4] = '2';
+"624
+[e = *U + &U . _data_horario 1 * -> -> -> 4 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 50 `ui `uc ]
+[; ;main.c: 625: data_horario.data[5] = '/';
 "625
-[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 626: horarioDespertador[1] = '0';
+[e = *U + &U . _data_horario 1 * -> -> -> 5 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 47 `ui `uc ]
+[; ;main.c: 626: data_horario.data[6] = '\0';
 "626
-[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 627: horarioDespertador[2] = ':';
+[e = *U + &U . _data_horario 1 * -> -> -> 6 `i `ui `ux -> -> # *U &U . _data_horario 1 `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 627: data_horario.ano = 2018;
 "627
-[e = *U + &U _horarioDespertador * -> -> -> 2 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 58 `ui `uc ]
-[; ;main.c: 628: horarioDespertador[3] = '0';
+[e = . _data_horario 4 -> 2018 `i ]
+[; ;main.c: 628: data_horario.dias = 31;
 "628
-[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
-[; ;main.c: 629: horarioDespertador[4] = '1';
+[e = . _data_horario 2 -> -> 31 `i `uc ]
+[; ;main.c: 629: data_horario.mes_atual = 11;
 "629
-[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 49 `ui `uc ]
-[; ;main.c: 630: horarioDespertador[5] = '\0';
-"630
-[e = *U + &U _horarioDespertador * -> -> -> 5 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 632: T0CONbits.TMR0ON = 0;
+[e = . _data_horario 3 -> -> 11 `i `uc ]
+[; ;main.c: 631: horarioDespertador[0] = '0';
+"631
+[e = *U + &U _horarioDespertador * -> -> -> 0 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 632: horarioDespertador[1] = '0';
 "632
-[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 633: INTCONbits.TMR0IE = 1;
+[e = *U + &U _horarioDespertador * -> -> -> 1 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 633: horarioDespertador[2] = ':';
 "633
-[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 634: INTCONbits.TMR0IF = 0;
+[e = *U + &U _horarioDespertador * -> -> -> 2 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 58 `ui `uc ]
+[; ;main.c: 634: horarioDespertador[3] = '0';
 "634
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 635: T0CONbits.T08BIT = 0;
+[e = *U + &U _horarioDespertador * -> -> -> 3 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 48 `ui `uc ]
+[; ;main.c: 635: horarioDespertador[4] = '1';
 "635
-[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 636: T0CONbits.PSA = 0;
+[e = *U + &U _horarioDespertador * -> -> -> 4 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 49 `ui `uc ]
+[; ;main.c: 636: horarioDespertador[5] = '\0';
 "636
-[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 637: T0CONbits.T0PS0 = 1;
-"637
-[e = . . _T0CONbits 1 0 -> -> 1 `i `uc ]
-[; ;main.c: 638: T0CONbits.T0PS1 = 0;
+[e = *U + &U _horarioDespertador * -> -> -> 5 `i `ui `ux -> -> # *U &U _horarioDespertador `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 638: T0CONbits.TMR0ON = 0;
 "638
-[e = . . _T0CONbits 1 1 -> -> 0 `i `uc ]
-[; ;main.c: 639: T0CONbits.T0PS2 = 1;
+[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 639: INTCONbits.TMR0IE = 1;
 "639
-[e = . . _T0CONbits 1 2 -> -> 1 `i `uc ]
-[; ;main.c: 640: T0CONbits.T0CS = 0;
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 640: INTCONbits.TMR0IF = 0;
 "640
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
-[; ;main.c: 641: TMR0 = 26474;
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;main.c: 641: T0CONbits.T08BIT = 0;
 "641
-[e = _TMR0 -> -> 26474 `i `us ]
-[; ;main.c: 642: T0CONbits.TMR0ON = 1;
+[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
+[; ;main.c: 642: T0CONbits.PSA = 0;
 "642
-[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 643: INTCONbits.GIEH = 1;
+[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
+[; ;main.c: 643: T0CONbits.T0PS0 = 1;
 "643
-[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
-[; ;main.c: 644: INTCONbits.GIEL = 1;
+[e = . . _T0CONbits 1 0 -> -> 1 `i `uc ]
+[; ;main.c: 644: T0CONbits.T0PS1 = 0;
 "644
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
-[; ;main.c: 647: init_XLCD();
+[e = . . _T0CONbits 1 1 -> -> 0 `i `uc ]
+[; ;main.c: 645: T0CONbits.T0PS2 = 1;
+"645
+[e = . . _T0CONbits 1 2 -> -> 1 `i `uc ]
+[; ;main.c: 646: T0CONbits.T0CS = 0;
+"646
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;main.c: 647: TMR0 = 26474;
 "647
-[e ( _init_XLCD ..  ]
-[; ;main.c: 650: while(1){
+[e = _TMR0 -> -> 26474 `i `us ]
+[; ;main.c: 648: T0CONbits.TMR0ON = 1;
+"648
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 649: INTCONbits.GIEH = 1;
+"649
+[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
+[; ;main.c: 650: INTCONbits.GIEL = 1;
 "650
+[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
+[; ;main.c: 653: init_XLCD();
+"653
+[e ( _init_XLCD ..  ]
+[; ;main.c: 656: while(1){
+"656
 [e :U 524 ]
 {
-[; ;main.c: 652: botao = PORTCbits.RC0;
-"652
+[; ;main.c: 657: maquinaEstado();
+"657
+[e ( _maquinaEstado ..  ]
+[; ;main.c: 658: botao = PORTCbits.RC0;
+"658
 [e = _botao . . _PORTCbits 0 0 ]
-[; ;main.c: 653: if(botao){
-"653
+[; ;main.c: 659: if(botao){
+"659
 [e $ ! != -> _botao `i -> -> -> 0 `i `uc `i 526  ]
 {
-[; ;main.c: 654: Delay10KTCYx(180);
-"654
+[; ;main.c: 660: Delay10KTCYx(180);
+"660
 [e ( _Delay10KTCYx (1 -> -> 180 `i `uc ]
-[; ;main.c: 656: atualiza_Tela(1);
-"656
+[; ;main.c: 662: atualiza_Tela(1);
+"662
 [e ( _atualiza_Tela (1 -> -> 1 `i `uc ]
-[; ;main.c: 658: while(botao){
-"658
+[; ;main.c: 664: while(botao){
+"664
 [e $U 527  ]
 [e :U 528 ]
 {
-[; ;main.c: 659: botao = PORTCbits.RC0;
-"659
+[; ;main.c: 665: botao = PORTCbits.RC0;
+"665
 [e = _botao . . _PORTCbits 0 0 ]
-"660
+"666
 }
 [e :U 527 ]
-"658
+"664
 [e $ != -> _botao `i -> -> -> 0 `i `uc `i 528  ]
 [e :U 529 ]
-"661
+"667
 }
 [e :U 526 ]
-[; ;main.c: 660: }
-[; ;main.c: 661: }
-[; ;main.c: 663: if(flagSegundo){
-"663
+[; ;main.c: 666: }
+[; ;main.c: 667: }
+[; ;main.c: 669: if(flagSegundo){
+"669
 [e $ ! != -> _flagSegundo `i -> -> -> 0 `i `uc `i 530  ]
 {
-[; ;main.c: 665: atualiza_Tela(0);
-"665
-[e ( _atualiza_Tela (1 -> -> 0 `i `uc ]
-[; ;main.c: 666: trata_relogio_data();
-"666
-[e ( _trata_relogio_data ..  ]
-[; ;main.c: 668: flagSegundo=0;
-"668
-[e = _flagSegundo -> -> 0 `i `uc ]
-"670
-}
-[e :U 530 ]
-[; ;main.c: 670: }
-[; ;main.c: 671: if(tela_atual == 2){
+[; ;main.c: 671: atualiza_Tela(0);
 "671
-[e $ ! == -> _tela_atual `i -> 2 `i 531  ]
-{
-[; ;main.c: 672: setaDespertador();
+[e ( _atualiza_Tela (1 -> -> 0 `i `uc ]
+[; ;main.c: 672: trata_relogio_data();
 "672
-[e ( _setaDespertador ..  ]
-"674
-}
-[e :U 531 ]
+[e ( _trata_relogio_data ..  ]
+[; ;main.c: 673: flagSegundo=0;
+"673
+[e = _flagSegundo -> -> 0 `i `uc ]
 "675
 }
+[e :U 530 ]
+[; ;main.c: 675: }
+[; ;main.c: 676: if(tela_atual == 2){
+"676
+[e $ ! == -> _tela_atual `i -> 2 `i 531  ]
+{
+[; ;main.c: 677: setaDespertador();
+"677
+[e ( _setaDespertador ..  ]
+"679
+}
+[e :U 531 ]
+"680
+}
 [e :U 523 ]
-"650
+"656
 [e $U 524  ]
 [e :U 525 ]
-[; ;main.c: 674: }
-[; ;main.c: 675: }
-[; ;main.c: 676: return;
-"676
+[; ;main.c: 679: }
+[; ;main.c: 680: }
+[; ;main.c: 681: return;
+"681
 [e $UE 522  ]
-[; ;main.c: 677: }
-"677
+[; ;main.c: 682: }
+"682
 [e :UE 522 ]
 }
 [p f _sprintf 8388736 ]

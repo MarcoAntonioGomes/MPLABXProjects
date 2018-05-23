@@ -57,7 +57,7 @@ char estado = IDLE; // estado idle
 char versao[6] = {'0','1','.','0','0'};
 char horarioDespertador[6];
 
-
+char i;
 char flagSegundo = 0;
 char cont=0;
 char flagDespertadorLigado = 0;
@@ -103,6 +103,28 @@ void interrupt low_priority pic_isr(void){
          TMR0 = 26474;
          INTCONbits.TMR0IF = 0;
      }
+     
+        //check if the interrupt is caused by RX pin
+    if(PIR1bits.RCIF == 1)
+    {
+        if(i<7)
+        {
+        while(!RCIF);                            // Wait until RCIF gets low
+            BUFFCOM[i]= RCREG;                                   // Retrieve data from reception register
+            
+          i++;  
+        }else
+        {
+            PIR1bits.RCIF = 0; // clear rx flag
+            i=0;
+            estado = VERIFICACRC;
+            
+        }
+        
+            
+    }
+     
+     
     
 }
 
@@ -304,22 +326,6 @@ void setaDespertador(){
     
 }
 
-void checaRX(){
-    char i=0;
-      if(i<7)
-        {
-        while(!RCIF);                            // Wait until RCIF gets low
-            BUFFCOM[i]= RCREG;                                   // Retrieve data from reception register
-            
-          i++;  
-        }else
-        {
-            PIR1bits.RCIF = 0; // clear rx flag
-            i=0;
-            estado = VERIFICACRC;
-            
-        }
-}
 
 
 
@@ -648,7 +654,7 @@ void main(void) {
      
       
     while(1){
-       // maquinaEstado();
+       maquinaEstado();
         botao =  PORTCbits.RC0;
         if(botao){
             Delay10KTCYx(180);
@@ -664,7 +670,6 @@ void main(void) {
            
             atualiza_Tela(0);  
             trata_relogio_data();
-            //checaRX();
             flagSegundo=0;
             
       }
