@@ -25,7 +25,7 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "28 C:\Users\Marco\MPLABXProjects\SemaforoComInterrupcao.X\main.c
 [v _pic_isr pic_isr `IIL(v  1 e 1 0 ]
-"69
+"71
 [v _main main `(v  1 e 1 0 ]
 "2418 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic18f4550.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
@@ -116,16 +116,18 @@
 "23
 [v _cont cont `uc  1 e 1 0 ]
 "24
-[v _amareloAcesso amareloAcesso `uc  1 e 1 0 ]
+[v _amareloLigado amareloLigado `uc  1 e 1 0 ]
 "25
-[v _verdeAcesso verdeAcesso `uc  1 e 1 0 ]
-"69
+[v _verdeLigado verdeLigado `uc  1 e 1 0 ]
+"26
+[v _vermelhoLigado vermelhoLigado `uc  1 e 1 0 ]
+"71
 [v _main main `(v  1 e 1 0 ]
 {
-"97
+"99
 } 0
 "28
 [v _pic_isr pic_isr `IIL(v  1 e 1 0 ]
 {
-"64
+"66
 } 0

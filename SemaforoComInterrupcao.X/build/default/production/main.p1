@@ -3610,27 +3610,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 "23
 [v _cont `uc ~T0 @X0 1 e ]
 [i _cont
--> -> 0 `i `uc
+-> -> 4 `i `uc
 ]
-[; ;main.c: 23: char cont = 0;
+[; ;main.c: 23: char cont = 4;
 "24
-[v _amareloAcesso `uc ~T0 @X0 1 e ]
-[i _amareloAcesso
+[v _amareloLigado `uc ~T0 @X0 1 e ]
+[i _amareloLigado
 -> -> 0 `i `uc
 ]
-[; ;main.c: 24: char amareloAcesso = 0;
+[; ;main.c: 24: char amareloLigado = 0;
 "25
-[v _verdeAcesso `uc ~T0 @X0 1 e ]
-[i _verdeAcesso
+[v _verdeLigado `uc ~T0 @X0 1 e ]
+[i _verdeLigado
+-> -> 0 `i `uc
+]
+[; ;main.c: 25: char verdeLigado = 0;
+"26
+[v _vermelhoLigado `uc ~T0 @X0 1 e ]
+[i _vermelhoLigado
 -> -> 1 `i `uc
 ]
-[; ;main.c: 25: char verdeAcesso = 1;
-"26
-[v _vermelhoAcesso `uc ~T0 @X0 1 e ]
-[i _vermelhoAcesso
--> -> 0 `i `uc
-]
-[; ;main.c: 26: char vermelhoAcesso = 0;
+[; ;main.c: 26: char vermelhoLigado = 1;
 [v F3793 `(v ~T0 @X0 1 tf ]
 "28
 [v _pic_isr `ILF3793 ~T0 @X0 1 e ]
@@ -3642,161 +3642,169 @@ Version 3.2 HI-TECH Software Intermediate Code
 "32
 [e $ ! _TMR0IF 363  ]
 {
-[; ;main.c: 35: PORTB = display[cont];
+[; ;main.c: 35: if(cont != 0) PORTB = display[cont];
 "35
+[e $ ! != -> _cont `i -> 0 `i 364  ]
 [e = _PORTB *U + &U _display * -> _cont `ux -> -> # *U &U _display `ui `ux ]
-[; ;main.c: 38: if(cont == 5){
-"38
-[e $ ! == -> _cont `i -> 5 `i 364  ]
-{
-[; ;main.c: 39: PORTCbits.RC2 = 0;
-"39
-[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 40: PORTCbits.RC1 = 1;
-"40
-[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
-[; ;main.c: 41: cont = 0;
-"41
-[e = _cont -> -> 0 `i `uc ]
-[; ;main.c: 42: verdeAcesso = 0;
-"42
-[e = _verdeAcesso -> -> 0 `i `uc ]
-"43
-}
 [e :U 364 ]
-[; ;main.c: 43: }
-[; ;main.c: 44: if((cont == 2 && amareloAcesso == 0)&&(verdeAcesso == 0)){
-"44
-[e $ ! && && == -> _cont `i -> 2 `i == -> _amareloAcesso `i -> 0 `i == -> _verdeAcesso `i -> 0 `i 365  ]
+[; ;main.c: 38: if((cont < 1 && verdeLigado == 0)&&(amareloLigado == 0) ){
+"38
+[e $ ! && && < -> _cont `i -> 1 `i == -> _verdeLigado `i -> 0 `i == -> _amareloLigado `i -> 0 `i 365  ]
 {
-[; ;main.c: 45: PORTCbits.RC1 = 0;
-"45
-[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 46: PORTCbits.RC0 = 1;
-"46
-[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
-[; ;main.c: 47: cont = 0;
-"47
-[e = _cont -> -> 0 `i `uc ]
-[; ;main.c: 48: amareloAcesso =1;
-"48
-[e = _amareloAcesso -> -> 1 `i `uc ]
-"49
+[; ;main.c: 39: PORTCbits.RC0 = 0;
+"39
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 40: PORTCbits.RC2 = 1;
+"40
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+[; ;main.c: 41: cont = 8;
+"41
+[e = _cont -> -> 8 `i `uc ]
+[; ;main.c: 42: vermelhoLigado = 0;
+"42
+[e = _vermelhoLigado -> -> 0 `i `uc ]
+[; ;main.c: 43: verdeLigado = 1;
+"43
+[e = _verdeLigado -> -> 1 `i `uc ]
+"44
 }
 [e :U 365 ]
-[; ;main.c: 49: }
-[; ;main.c: 50: if((cont == 4) &&(verdeAcesso == 0)){
-"50
-[e $ ! && == -> _cont `i -> 4 `i == -> _verdeAcesso `i -> 0 `i 366  ]
+[; ;main.c: 44: }
+[; ;main.c: 45: if((cont < 1 && verdeLigado == 1)&&(vermelhoLigado == 0)){
+"45
+[e $ ! && && < -> _cont `i -> 1 `i == -> _verdeLigado `i -> 1 `i == -> _vermelhoLigado `i -> 0 `i 366  ]
 {
-[; ;main.c: 51: PORTCbits.RC0 = 0;
+[; ;main.c: 46: PORTCbits.RC1 = 1;
+"46
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+[; ;main.c: 47: PORTCbits.RC2 = 0;
+"47
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+[; ;main.c: 48: cont = 3;
+"48
+[e = _cont -> -> 3 `i `uc ]
+[; ;main.c: 49: amareloLigado =1;
+"49
+[e = _amareloLigado -> -> 1 `i `uc ]
+[; ;main.c: 50: verdeLigado = 0;
+"50
+[e = _verdeLigado -> -> 0 `i `uc ]
 "51
-[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 52: PORTCbits.RC2 = 1;
-"52
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 53: verdeAcesso = 1;
-"53
-[e = _verdeAcesso -> -> 1 `i `uc ]
-[; ;main.c: 54: amareloAcesso =0;
-"54
-[e = _amareloAcesso -> -> 0 `i `uc ]
-[; ;main.c: 55: cont = 0;
-"55
-[e = _cont -> -> 0 `i `uc ]
-"56
 }
 [e :U 366 ]
-[; ;main.c: 56: }
-[; ;main.c: 59: cont++;
-"59
-[e ++ _cont -> -> 1 `i `uc ]
-[; ;main.c: 60: TMR0 =26474;
-"60
-[e = _TMR0 -> -> 26474 `i `us ]
-[; ;main.c: 61: INTCONbits.TMR0IF = 0;
+[; ;main.c: 51: }
+[; ;main.c: 52: if((cont < 1) &&(amareloLigado == 1)){
+"52
+[e $ ! && < -> _cont `i -> 1 `i == -> _amareloLigado `i -> 1 `i 367  ]
+{
+[; ;main.c: 53: PORTCbits.RC1 = 0;
+"53
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+[; ;main.c: 54: PORTCbits.RC0 = 1;
+"54
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;main.c: 55: vermelhoLigado = 1;
+"55
+[e = _vermelhoLigado -> -> 1 `i `uc ]
+[; ;main.c: 56: amareloLigado = 0;
+"56
+[e = _amareloLigado -> -> 0 `i `uc ]
+[; ;main.c: 57: cont = 5;
+"57
+[e = _cont -> -> 5 `i `uc ]
+"58
+}
+[e :U 367 ]
+[; ;main.c: 58: }
+[; ;main.c: 61: cont--;
 "61
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[e -- _cont -> -> 1 `i `uc ]
+[; ;main.c: 62: TMR0 =26474;
 "62
+[e = _TMR0 -> -> 26474 `i `us ]
+[; ;main.c: 63: INTCONbits.TMR0IF = 0;
+"63
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+"64
 }
 [e :U 363 ]
-[; ;main.c: 62: }
 [; ;main.c: 64: }
-"64
+[; ;main.c: 66: }
+"66
 [e :UE 362 ]
 }
-"69
+"71
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 69: void main(void) {
+[; ;main.c: 71: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 70: ADCON1 = 0x0F;
-"70
-[e = _ADCON1 -> -> 15 `i `uc ]
-[; ;main.c: 71: TRISB = 0x00;
-"71
-[e = _TRISB -> -> 0 `i `uc ]
-[; ;main.c: 72: TRISC = 0x00;
+[; ;main.c: 72: ADCON1 = 0x0F;
 "72
-[e = _TRISC -> -> 0 `i `uc ]
-[; ;main.c: 74: T0CONbits.TMR0ON = 0;
+[e = _ADCON1 -> -> 15 `i `uc ]
+[; ;main.c: 73: TRISB = 0x00;
+"73
+[e = _TRISB -> -> 0 `i `uc ]
+[; ;main.c: 74: TRISC = 0x00;
 "74
-[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
-[; ;main.c: 75: INTCONbits.TMR0IE = 1;
-"75
-[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 76: INTCONbits.TMR0IF = 0;
+[e = _TRISC -> -> 0 `i `uc ]
+[; ;main.c: 76: T0CONbits.TMR0ON = 0;
 "76
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;main.c: 77: T0CONbits.T08BIT = 0;
+[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
+[; ;main.c: 77: INTCONbits.TMR0IE = 1;
 "77
-[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 78: T0CONbits.PSA = 0;
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 78: INTCONbits.TMR0IF = 0;
 "78
-[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
-[; ;main.c: 79: T0CONbits.T0PS0 = 0;
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;main.c: 79: T0CONbits.T08BIT = 0;
 "79
-[e = . . _T0CONbits 1 0 -> -> 0 `i `uc ]
-[; ;main.c: 80: T0CONbits.T0PS1 = 1;
+[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
+[; ;main.c: 80: T0CONbits.PSA = 0;
 "80
-[e = . . _T0CONbits 1 1 -> -> 1 `i `uc ]
-[; ;main.c: 81: T0CONbits.T0PS2 = 1;
+[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
+[; ;main.c: 81: T0CONbits.T0PS0 = 0;
 "81
-[e = . . _T0CONbits 1 2 -> -> 1 `i `uc ]
-[; ;main.c: 82: T0CONbits.T0CS = 0;
+[e = . . _T0CONbits 1 0 -> -> 0 `i `uc ]
+[; ;main.c: 82: T0CONbits.T0PS1 = 1;
 "82
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
-[; ;main.c: 83: TMR0 = 26474;
+[e = . . _T0CONbits 1 1 -> -> 1 `i `uc ]
+[; ;main.c: 83: T0CONbits.T0PS2 = 1;
 "83
-[e = _TMR0 -> -> 26474 `i `us ]
-[; ;main.c: 84: T0CONbits.TMR0ON = 1;
+[e = . . _T0CONbits 1 2 -> -> 1 `i `uc ]
+[; ;main.c: 84: T0CONbits.T0CS = 0;
 "84
-[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 85: INTCONbits.GIEH = 1;
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;main.c: 85: TMR0 = 26474;
 "85
-[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
-[; ;main.c: 86: INTCONbits.GIEL = 1;
+[e = _TMR0 -> -> 26474 `i `us ]
+[; ;main.c: 86: T0CONbits.TMR0ON = 1;
 "86
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
-[; ;main.c: 87: PORTCbits.RC2 = 1;
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 87: INTCONbits.GIEH = 1;
 "87
-[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 91: while(1){
-"91
-[e :U 369 ]
-{
+[e = . . _INTCONbits 2 2 -> -> 1 `i `uc ]
+[; ;main.c: 88: INTCONbits.GIEL = 1;
+"88
+[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
+[; ;main.c: 89: PORTCbits.RC0 = 1;
+"89
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+[; ;main.c: 93: while(1){
 "93
-}
-[e :U 368 ]
-"91
-[e $U 369  ]
 [e :U 370 ]
-[; ;main.c: 93: }
-[; ;main.c: 96: return;
-"96
-[e $UE 367  ]
-[; ;main.c: 97: }
-"97
-[e :UE 367 ]
+{
+"95
+}
+[e :U 369 ]
+"93
+[e $U 370  ]
+[e :U 371 ]
+[; ;main.c: 95: }
+[; ;main.c: 98: return;
+"98
+[e $UE 368  ]
+[; ;main.c: 99: }
+"99
+[e :UE 368 ]
 }
