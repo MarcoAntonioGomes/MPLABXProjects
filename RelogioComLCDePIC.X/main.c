@@ -20,7 +20,7 @@
 #include <string.h>
 
 #define POLY 0x8408
-#define _XTAL_FREQ 20000000
+#define _XTAL_FREQ 12000000
 #define IDLE 0
 #define VERIFICACRC 1
 #define COMRECEBIDO 2
@@ -30,8 +30,8 @@
 #define ALTERACAO 2
 #define LEITURA 1
 #define ACK 	0x05
-#define NACK 	0x15
-#define FREQ 20000000 
+#define NACK 	0x0F
+#define FREQ 12000000
 #define baud 9600
 #define spbrg_value (((FREQ/64)/baud)-1)
 #define nome_versao  0
@@ -57,7 +57,7 @@ char estado = IDLE; // estado idle
 char versao[6] = {'0','1','.','0','0'};
 char horarioDespertador[6];
 
-char i;
+char i=0;
 char flagSegundo = 0;
 char cont=0;
 char flagDespertadorLigado = 0;
@@ -86,6 +86,18 @@ void DelayXLCD(void){
 
 char  dias_mes[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
+void enviaByteTeste(char BYTE)
+{
+
+    	while(!TXIF);                            // Wait until RCIF gets low
+    	TXREG = BYTE;
+}
+
+
+void printaDisplay(){
+          SetDDRamAddr(0x00);
+          putrsXLCD(BUFFCOM);
+}
 
 void interrupt low_priority pic_isr(void){
   
@@ -107,14 +119,16 @@ void interrupt low_priority pic_isr(void){
         //check if the interrupt is caused by RX pin
     if(PIR1bits.RCIF == 1)
     {
-        if(i<7)
-        {
+        
+        
         while(!RCIF);                            // Wait until RCIF gets low
             BUFFCOM[i]= RCREG;                                   // Retrieve data from reception register
-            
+                //enviaByteTeste(BUFFCOM[i]);
           i++;  
-        }else
+        
+        if(i>6)
         {
+            printaDisplay();
             PIR1bits.RCIF = 0; // clear rx flag
             i=0;
             estado = VERIFICACRC;
@@ -127,6 +141,8 @@ void interrupt low_priority pic_isr(void){
      
     
 }
+
+
 
 char verificaAnoBissexto(int ano){
     if(ano % 4 == 0 ){
@@ -469,11 +485,11 @@ void trataComando(){
 			// verifica o que deve ser lido
 			switch(BUFFCOM[1])
 			{
-				//altera versao e revisao
+				//altera versao e revisao 02000200
 				case 0:
 				
-					versao[1] = BUFFCOM[2];
-					versao[4] = BUFFCOM[3];
+					versao[1] = BUFFCOM[2]+48;
+					versao[4] = BUFFCOM[3]+48;
 				break;			
 				
 				case 1:
@@ -486,17 +502,18 @@ void trataComando(){
 				break;
 				
 				case 2:
-				 data_horario.data[0] = ((BUFFCOM[2]/10) + '0');
-				 data_horario.data[1] = ((BUFFCOM[2]%10) + '0');  
-				 data_horario.data[3] = ((BUFFCOM[3]/10) + '0');
-				 data_horario.data[4] = ((BUFFCOM[3]%10) + '0');
-				 data_horario.ano = BUFFCOM[4]+2000;
+				 data_horario.horario[0] = ((BUFFCOM[2]/10) + '0');
+				 data_horario.horario[1] = ((BUFFCOM[2]%10) + '0');  
+				 data_horario.horario[3] = ((BUFFCOM[3]/10) + '0');
+				 data_horario.horario[4] = ((BUFFCOM[3]%10) + '0');
+				 
 				break;
 				case 3:
-				horarioDespertador[0] =  ((BUFFCOM[2]/10) + '0');
-				horarioDespertador[1] =  ((BUFFCOM[2]%10) + '0');
-				horarioDespertador[3] =  ((BUFFCOM[3]/10) + '0');
-				horarioDespertador[4] =  ((BUFFCOM[3]%10) + '0');
+                    horarioDespertador[0] =  ((BUFFCOM[2]/10) + '0');
+                    horarioDespertador[1] =  ((BUFFCOM[2]%10) + '0');
+                    horarioDespertador[3] =  ((BUFFCOM[3]/10) + '0');
+                    horarioDespertador[4] =  ((BUFFCOM[3]%10) + '0');
+                    atualiza_Tela(0);
 				break;
 				default:
 				break;
@@ -516,8 +533,7 @@ void verificaCRCBUFFCOM(){
 	
 	//ajudar no entendimento, deve ser retirado depois
 	char CRC_OK =0;
-	unsigned short crc;
-	unsigned char crc1, crc2;
+	unsigned short crc, crc1, crc2;
 
 	crc =  crc16(BUFFCOM,5);
 	crc1 = crc >> 8;
@@ -585,7 +601,7 @@ void main(void) {
       ADCON1 = 0x0F;
       TRISB = 0x00;
       TRISD = 0x00;
-      TRISC = 0x01;
+      //TRISC = 0x01;
       SPBRG=spbrg_value;                                // Fill the SPBRG register to set the Baud Rate
     //RCSTA.SPEN=1;                                     // To activate Serial port (TX and RX pins)
    // TXSTA.TXEN=1;                                     // To enable transmission
@@ -595,6 +611,10 @@ void main(void) {
     RCSTA = 0b10010000; // 0x90 (SPEN RX9 SREN CREN ADEN FERR OERR RX9D)
     TXSTA = 0b00100000; // 0x20 (CSRC TX9 TXEN SYNC - BRGH TRMT TX9D)
     
+     TRISCbits.RC0 = 1;
+     TRISCbits.RC1 = 1;     
+     TRISCbits.RC2 = 1;
+             
     TRISCbits.RC6 = 0; //TX pin set as output
     TRISCbits.RC7 = 1; //RX pin set as input
     
