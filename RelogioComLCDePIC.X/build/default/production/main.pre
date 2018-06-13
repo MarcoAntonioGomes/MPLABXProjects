@@ -6225,7 +6225,8 @@ data_horario.data[1] = ((BUFFCOM[2]%10));
 data_horario.data[3] = ((BUFFCOM[3]/10));
 data_horario.data[4] = ((BUFFCOM[3]%10));
 data_horario.ano = BUFFCOM[4] + 2000;
-
+data_horario.dias = BUFFCOM[2];
+data_horario.mes_atual = (BUFFCOM[3]-1);
 break;
 
 case 2:
@@ -6241,7 +6242,7 @@ horarioDespertador[0] = ((BUFFCOM[2]/10));
 horarioDespertador[1] = ((BUFFCOM[2]%10));
 horarioDespertador[3] = ((BUFFCOM[3]/10));
 horarioDespertador[4] = ((BUFFCOM[3]%10));
-atualiza_Tela(0);
+
 break;
 default:
 break;
@@ -6332,7 +6333,7 @@ TRISD = 0x00;
 
 SPBRG=(((12000000/64)/9600)-1);
 
-# 621
+# 622
 RCSTA = 0b10010000;
 TXSTA = 0b00100000;
 

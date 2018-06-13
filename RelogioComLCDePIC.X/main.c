@@ -506,8 +506,9 @@ void trataComando(){
                     data_horario.data[1] =  ((BUFFCOM[2]%10));
                     data_horario.data[3] =  ((BUFFCOM[3]/10));
                     data_horario.data[4] =  ((BUFFCOM[3]%10));
-                    data_horario.ano = BUFFCOM[4] + 2000;      
-                    
+                    data_horario.ano = BUFFCOM[4] + 2000;
+                    data_horario.dias = BUFFCOM[2];
+                    data_horario.mes_atual = (BUFFCOM[3]-1); 
 				break;
 				
 				case 2:
@@ -523,7 +524,7 @@ void trataComando(){
                     horarioDespertador[1] =  ((BUFFCOM[2]%10));
                     horarioDespertador[3] =  ((BUFFCOM[3]/10));
                     horarioDespertador[4] =  ((BUFFCOM[3]%10));
-                    atualiza_Tela(0);
+                   
 				break;
 				default:
 				break;

@@ -97,11 +97,11 @@
 [v _calculaCRCBUFFRESP calculaCRCBUFFRESP `(v  1 e 1 0 ]
 "421
 [v _trataComando trataComando `(v  1 e 1 0 ]
-"542
+"543
 [v _verificaCRCBUFFCOM verificaCRCBUFFCOM `(v  1 e 1 0 ]
-"572
+"573
 [v _maquinaEstado maquinaEstado `(v  1 e 1 0 ]
-"610
+"611
 [v _main main `(v  1 e 1 0 ]
 [s S203 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
@@ -360,12 +360,12 @@
 [v _tela_atual tela_atual `uc  1 e 1 0 ]
 "89
 [v _dias_mes dias_mes `[12]uc  1 e 12 0 ]
-"610
+"611
 [v _main main `(v  1 e 1 0 ]
 {
-"636
+"637
 [v main@botao botao `uc  1 a 1 21 ]
-"709
+"710
 } 0
 "177
 [v _trata_relogio_data trata_relogio_data `(v  1 e 1 0 ]
@@ -382,82 +382,6 @@
 [v _setaDespertador setaDespertador `(v  1 e 1 0 ]
 {
 "349
-} 0
-"572
-[v _maquinaEstado maquinaEstado `(v  1 e 1 0 ]
-{
-"607
-} 0
-"542
-[v _verificaCRCBUFFCOM verificaCRCBUFFCOM `(v  1 e 1 0 ]
-{
-"546
-[v verificaCRCBUFFCOM@crc crc `us  1 a 2 42 ]
-[v verificaCRCBUFFCOM@crc2 crc2 `us  1 a 2 39 ]
-[v verificaCRCBUFFCOM@crc1 crc1 `us  1 a 2 37 ]
-"545
-[v verificaCRCBUFFCOM@CRC_OK CRC_OK `uc  1 a 1 41 ]
-"570
-} 0
-"382
-[v _tx_data tx_data `(v  1 e 1 0 ]
-{
-"383
-[v tx_data@cont cont `i  1 a 2 22 ]
-"393
-} 0
-"421
-[v _trataComando trataComando `(v  1 e 1 0 ]
-{
-"540
-} 0
-"4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\strlen.c
-[v _strlen strlen `(ui  1 e 2 0 ]
-{
-"6
-[v strlen@cp cp `*.39Cuc  1 a 2 26 ]
-"4
-[v strlen@s s `*.39Cuc  1 p 2 22 ]
-"13
-} 0
-"99 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
-[v _printaDisplay printaDisplay `(v  1 e 1 0 ]
-{
-"102
-} 0
-"11 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\memcpy.c
-[v _memcpy memcpy `(*.39v  1 e 2 0 ]
-{
-"20
-[v memcpy@s s `*.39Cuc  1 a 2 36 ]
-"18
-[v memcpy@d d `*.39uc  1 a 2 34 ]
-"11
-[v memcpy@d1 d1 `*.39v  1 p 2 28 ]
-[v memcpy@s1 s1 `*.39Cv  1 p 2 30 ]
-[v memcpy@n n `ui  1 p 2 32 ]
-"32
-} 0
-"409 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
-[v _calculaCRCBUFFRESP calculaCRCBUFFRESP `(v  1 e 1 0 ]
-{
-"411
-[v calculaCRCBUFFRESP@crc crc `us  1 a 2 35 ]
-"419
-} 0
-"354
-[v _crc16 crc16 `(us  1 e 2 0 ]
-{
-"358
-[v crc16@crc crc `ui  1 a 2 33 ]
-"357
-[v crc16@data data `ui  1 a 2 31 ]
-"355
-[v crc16@i i `uc  1 a 1 30 ]
-"354
-[v crc16@data_p data_p `*.39uc  1 p 2 22 ]
-[v crc16@length length `us  1 p 2 24 ]
-"380
 } 0
 "257
 [v _atualiza_Tela atualiza_Tela `(v  1 e 1 0 ]
@@ -536,6 +460,82 @@
 [v _acionaDespertador acionaDespertador `(v  1 e 1 0 ]
 {
 "254
+} 0
+"573
+[v _maquinaEstado maquinaEstado `(v  1 e 1 0 ]
+{
+"608
+} 0
+"543
+[v _verificaCRCBUFFCOM verificaCRCBUFFCOM `(v  1 e 1 0 ]
+{
+"547
+[v verificaCRCBUFFCOM@crc crc `us  1 a 2 42 ]
+[v verificaCRCBUFFCOM@crc2 crc2 `us  1 a 2 39 ]
+[v verificaCRCBUFFCOM@crc1 crc1 `us  1 a 2 37 ]
+"546
+[v verificaCRCBUFFCOM@CRC_OK CRC_OK `uc  1 a 1 41 ]
+"571
+} 0
+"382
+[v _tx_data tx_data `(v  1 e 1 0 ]
+{
+"383
+[v tx_data@cont cont `i  1 a 2 22 ]
+"393
+} 0
+"421
+[v _trataComando trataComando `(v  1 e 1 0 ]
+{
+"541
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+{
+"6
+[v strlen@cp cp `*.39Cuc  1 a 2 26 ]
+"4
+[v strlen@s s `*.39Cuc  1 p 2 22 ]
+"13
+} 0
+"99 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+[v _printaDisplay printaDisplay `(v  1 e 1 0 ]
+{
+"102
+} 0
+"11 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\memcpy.c
+[v _memcpy memcpy `(*.39v  1 e 2 0 ]
+{
+"20
+[v memcpy@s s `*.39Cuc  1 a 2 36 ]
+"18
+[v memcpy@d d `*.39uc  1 a 2 34 ]
+"11
+[v memcpy@d1 d1 `*.39v  1 p 2 28 ]
+[v memcpy@s1 s1 `*.39Cv  1 p 2 30 ]
+[v memcpy@n n `ui  1 p 2 32 ]
+"32
+} 0
+"409 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+[v _calculaCRCBUFFRESP calculaCRCBUFFRESP `(v  1 e 1 0 ]
+{
+"411
+[v calculaCRCBUFFRESP@crc crc `us  1 a 2 35 ]
+"419
+} 0
+"354
+[v _crc16 crc16 `(us  1 e 2 0 ]
+{
+"358
+[v crc16@crc crc `ui  1 a 2 33 ]
+"357
+[v crc16@data data `ui  1 a 2 31 ]
+"355
+[v crc16@i i `uc  1 a 1 30 ]
+"354
+[v crc16@data_p data_p `*.39uc  1 p 2 22 ]
+[v crc16@length length `us  1 p 2 24 ]
+"380
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
