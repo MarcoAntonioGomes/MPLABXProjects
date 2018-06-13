@@ -38,6 +38,7 @@
 #define hora_data  1
 #define alarme  2
 
+
 #pragma config PBADEN = OFF 
 #pragma config WDT = OFF
 
@@ -50,6 +51,7 @@ char mes_atual;
 int ano;
 }horas_datas;
 
+char vet[8];
 horas_datas data_horario;
 char pegaHoraData[3];
 unsigned char BUFFCOM[7], BUFFRESP[7];
@@ -96,7 +98,7 @@ void enviaByteTeste(char BYTE)
 
 void printaDisplay(){
           SetDDRamAddr(0x00);
-          putrsXLCD(BUFFCOM);
+          //putrsXLCD(BUFFCOM[1]);
 }
 
 void interrupt low_priority pic_isr(void){
@@ -128,7 +130,7 @@ void interrupt low_priority pic_isr(void){
         
         if(i>6)
         {
-            printaDisplay();
+             printaDisplay();
             PIR1bits.RCIF = 0; // clear rx flag
             i=0;
             estado = VERIFICACRC;
@@ -174,44 +176,44 @@ char *converteAnoString(int ano){
 
 void trata_relogio_data(){
     data_horario.horario[7]++;
-    if(data_horario.horario[7]>'9'){
-        data_horario.horario[7]='0';
+     if(data_horario.horario[7]> 9){
+        data_horario.horario[7]= 0;
         data_horario.horario[6]++;
-      if(data_horario.horario[6]>'5'){
-          data_horario.horario[6] ='0';
+      if(data_horario.horario[6]> 5 ){
+          data_horario.horario[6] = 0;
           data_horario.horario[4]++;
           virouDia = 1;
-          if(data_horario.horario[4]>'9'){
-               data_horario.horario[4] ='0';
+          if(data_horario.horario[4]>9){
+               data_horario.horario[4] = 0;
               data_horario.horario[3]++;
-              if( data_horario.horario[3]>'5'){
-                   data_horario.horario[3] ='0';
+              if( data_horario.horario[3]> 5){
+                   data_horario.horario[3] = 0;
                     data_horario.horario[1]++;
-                    if( data_horario.horario[1]> '9'){
-                         data_horario.horario[1]= '0';
+                    if( data_horario.horario[1]> 9){
+                         data_horario.horario[1]= 0;
                           data_horario.horario[0]++;
                     }
-                          if( data_horario.horario[0] == '2' && data_horario.horario[1] > '3'){
-                              data_horario.horario[0] = '0';
-                              data_horario.horario[1] = '0';
+                          if( data_horario.horario[0] == 2 && data_horario.horario[1] > 3){
+                              data_horario.horario[0] = 0;
+                              data_horario.horario[1] = 0;
                               data_horario.data[1]++;
                               data_horario.dias++;
-                              if(data_horario.data[1]>'9'){
+                              if(data_horario.data[1]> 9){
                                    data_horario.data[1]=0;
                                    data_horario.data[0]++;
                               }
                                    if(data_horario.dias > dias_mes[data_horario.mes_atual-1]){
-                                        data_horario.data[1]= '1';
-                                        data_horario.data[0]='0';
+                                        data_horario.data[1]= 1;
+                                        data_horario.data[0]= 0;
                                         data_horario.mes_atual++;
                                         data_horario.data[4]++;
-                                        if( data_horario.data[4] >'9'){
-                                             data_horario.data[4] ='0';
+                                        if( data_horario.data[4] > 9){
+                                             data_horario.data[4] = 0;
                                              data_horario.data[3]++;
                                         }
                                              if(data_horario.mes_atual >11){
-                                                 data_horario.data[4] ='1';
-                                                 data_horario.data[3]='0';
+                                                 data_horario.data[4] =1;
+                                                 data_horario.data[3]= 0;
                                                  data_horario.mes_atual =1;
                                                  data_horario.ano++;
                                                  if(verificaAnoBissexto(data_horario.ano)){
@@ -231,9 +233,10 @@ void trata_relogio_data(){
               }
           }
       }  
-        
-      
+    
 }
+
+
 
 void init_XLCD(VOID){
     OpenXLCD(FOUR_BIT&LINES_5X7);
@@ -271,10 +274,12 @@ void atualiza_Tela(char troca_ou_nao){
         case hora_data:
            SetDDRamAddr(0x00);
           putrsXLCD("Hora: ");
-          putrsXLCD(data_horario.horario);
+          sprintf(vet,"%i%i:%i%i:%i%i", data_horario.horario[0], data_horario.horario[1], data_horario.horario[3], data_horario.horario[4], data_horario.horario[6],data_horario.horario[7]);
+          putrsXLCD(vet);
           SetDDRamAddr(0x40);
           putrsXLCD("Data: ");
-          putrsXLCD(data_horario.data);
+          sprintf(vet,"%i%i/%i%i/",data_horario.data[0],data_horario.data[1],data_horario.data[3],data_horario.data[4]);
+          putrsXLCD(vet);
           putrsXLCD(converteAnoString(data_horario.ano));
           acionaDespertador();
           if(flagDespertadorLigado){
@@ -293,7 +298,8 @@ void atualiza_Tela(char troca_ou_nao){
          putrsXLCD("     ALARME     ");
          SetDDRamAddr(0x40);
          putrsXLCD("     ");
-         putrsXLCD(horarioDespertador);
+         sprintf(vet,"%i%i:%i%i", horarioDespertador[0], horarioDespertador[1], horarioDespertador[3], horarioDespertador[4]);
+         putrsXLCD(vet);
          putrsXLCD("      ");
         break;
     }
@@ -306,13 +312,13 @@ void setaDespertador(){
             Delay10KTCYx(180);
             
             horarioDespertador[1]++;
-            if(horarioDespertador[1]>'9'){
-                horarioDespertador[1] ='0';
+            if(horarioDespertador[1]>9){
+                horarioDespertador[1] = 0;
                 horarioDespertador[0]++;  
             }
-            if(horarioDespertador[0] == '2' && horarioDespertador[1] >'3'){
-                    horarioDespertador[1] ='0';
-                    horarioDespertador[0] ='0';
+            if(horarioDespertador[0] == 2 && horarioDespertador[1] > 3){
+                    horarioDespertador[1] = 0;
+                    horarioDespertador[0] = 0;
             }
             
             atualiza_Tela(0); 
@@ -325,14 +331,14 @@ void setaDespertador(){
             Delay10KTCYx(180);
             
             horarioDespertador[4]++;
-            if(horarioDespertador[4]>'9'){
-                horarioDespertador[4]='0';
+            if(horarioDespertador[4]>9){
+                horarioDespertador[4]=0;
                 horarioDespertador[3]++;
               
             }
-            if(horarioDespertador[3] == '5' && horarioDespertador[4] > '9'){
-                horarioDespertador[4] ='0';
-                horarioDespertador[3] ='0';
+            if(horarioDespertador[3] == 5 && horarioDespertador[4] > 9){
+                horarioDespertador[4] = 0;
+                horarioDespertador[3] = 0;
             }
             atualiza_Tela(0); 
             while(botaoMin){
@@ -480,7 +486,9 @@ void trataComando(){
 			//utilizar funcao memcpy, obrigatorio!
 			//copia buffer de comando em buffer de resposta
 		 	 memcpy(BUFFRESP,BUFFCOM,strlen(BUFFCOM));
-			
+             if(BUFFCOM[1] == (1+'0')){
+                   printaDisplay();
+             }
 			
 			// verifica o que deve ser lido
 			switch(BUFFCOM[1])
@@ -493,26 +501,28 @@ void trataComando(){
 				break;			
 				
 				case 1:
-              data_horario.data[0] =  ((BUFFCOM[2]/10) + '0');
-  			  data_horario.data[1] =  ((BUFFCOM[2]%10) + '0');
-  			  data_horario.data[3] =  ((BUFFCOM[3]/10) + '0');
-  			  data_horario.data[4] =  ((BUFFCOM[3]%10) + '0');
-              data_horario.ano = BUFFCOM[4] + 2000;
-
+                    printaDisplay();
+                    data_horario.data[0] =  ((BUFFCOM[2]/10));
+                    data_horario.data[1] =  ((BUFFCOM[2]%10));
+                    data_horario.data[3] =  ((BUFFCOM[3]/10));
+                    data_horario.data[4] =  ((BUFFCOM[3]%10));
+                    data_horario.ano = BUFFCOM[4] + 2000;      
+                    
 				break;
 				
 				case 2:
-				 data_horario.horario[0] = ((BUFFCOM[2]/10) + '0');
-				 data_horario.horario[1] = ((BUFFCOM[2]%10) + '0');  
-				 data_horario.horario[3] = ((BUFFCOM[3]/10) + '0');
-				 data_horario.horario[4] = ((BUFFCOM[3]%10) + '0');
+				 data_horario.horario[0] = ((BUFFCOM[2]/10));
+				 data_horario.horario[1] = ((BUFFCOM[2]%10));  
+				 data_horario.horario[3] = ((BUFFCOM[3]/10));
+				 data_horario.horario[4] = ((BUFFCOM[3]%10));
+                 
 				 
 				break;
 				case 3:
-                    horarioDespertador[0] =  ((BUFFCOM[2]/10) + '0');
-                    horarioDespertador[1] =  ((BUFFCOM[2]%10) + '0');
-                    horarioDespertador[3] =  ((BUFFCOM[3]/10) + '0');
-                    horarioDespertador[4] =  ((BUFFCOM[3]%10) + '0');
+                    horarioDespertador[0] =  ((BUFFCOM[2]/10));
+                    horarioDespertador[1] =  ((BUFFCOM[2]%10));
+                    horarioDespertador[3] =  ((BUFFCOM[3]/10));
+                    horarioDespertador[4] =  ((BUFFCOM[3]%10));
                     atualiza_Tela(0);
 				break;
 				default:
@@ -627,32 +637,27 @@ void main(void) {
       
     
       
-      data_horario.horario[0] = '2';
-      data_horario.horario[1] = '3';
-      data_horario.horario[2] = ':';
-      data_horario.horario[3] = '5';
-      data_horario.horario[4] = '9';
-      data_horario.horario[5] = ':';
-      data_horario.horario[6] = '5';
-      data_horario.horario[7] = '0';
+      data_horario.horario[0] = 2;
+      data_horario.horario[1] = 3;
+      data_horario.horario[3] = 5;
+      data_horario.horario[4] = 9;
+      data_horario.horario[6] = 5;
+      data_horario.horario[7] = 0;
       data_horario.horario[8] = '\0';
        
-      data_horario.data[0] = '3';
-      data_horario.data[1] = '1';
-      data_horario.data[2] = '/';
-      data_horario.data[3] = '1';
-      data_horario.data[4] = '2';
-      data_horario.data[5] = '/';
+      data_horario.data[0] = 3;
+      data_horario.data[1] = 1;
+      data_horario.data[3] = 1;
+      data_horario.data[4] = 2;
       data_horario.data[6] = '\0';
       data_horario.ano = 2018;
       data_horario.dias = 31;
       data_horario.mes_atual = 11;
       
-      horarioDespertador[0] = '0';
-      horarioDespertador[1] = '0';
-      horarioDespertador[2] = ':';
-      horarioDespertador[3] = '0';
-      horarioDespertador[4] = '1';
+      horarioDespertador[0] = 0;
+      horarioDespertador[1] = 0;
+      horarioDespertador[3] = 0;
+      horarioDespertador[4] = 1;
       horarioDespertador[5] = '\0';
       
       T0CONbits.TMR0ON = 0;
@@ -693,10 +698,12 @@ void main(void) {
             flagSegundo=0;
             
       }
+        
         if(tela_atual == 2){
             setaDespertador();
            
         }
+        
     }
     return;
 }

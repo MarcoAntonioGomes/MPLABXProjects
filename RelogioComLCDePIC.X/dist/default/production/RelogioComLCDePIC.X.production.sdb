@@ -52,12 +52,10 @@
 [v _Delay1KTCYx Delay1KTCYx `(v  1 e 1 0 ]
 "11 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\busyxlcd.c
 [v _BusyXLCD BusyXLCD `(uc  1 e 1 0 ]
-[v i1_BusyXLCD BusyXLCD `(uc  1 e 1 0 ]
 "19 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\openxlcd.c
 [v _OpenXLCD OpenXLCD `(v  1 e 1 0 ]
 "16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\putrxlcd.c
 [v _putrsXLCD putrsXLCD `(v  1 e 1 0 ]
-[v i1_putrsXLCD putrsXLCD `(v  1 e 1 0 ]
 "13 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\setddram.c
 [v _SetDDRamAddr SetDDRamAddr `(v  1 e 1 0 ]
 [v i1_SetDDRamAddr SetDDRamAddr `(v  1 e 1 0 ]
@@ -65,45 +63,45 @@
 [v _WriteCmdXLCD WriteCmdXLCD `(v  1 e 1 0 ]
 "16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\writdata.c
 [v _WriteDataXLCD WriteDataXLCD `(v  1 e 1 0 ]
-[v i1_WriteDataXLCD WriteDataXLCD `(v  1 e 1 0 ]
-"72 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"74 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _DelayFor18TCY DelayFor18TCY `(v  1 e 1 0 ]
 [v i1_DelayFor18TCY DelayFor18TCY `(v  1 e 1 0 ]
-"76
+"78
 [v _DelayPORXLCD DelayPORXLCD `(v  1 e 1 0 ]
-"97
+"99
 [v _printaDisplay printaDisplay `(v  1 e 1 0 ]
-"102
+[v i1_printaDisplay printaDisplay `(v  1 e 1 0 ]
+"104
 [v _pic_isr pic_isr `IIL(v  1 e 1 0 ]
-"147
+"149
 [v _verificaAnoBissexto verificaAnoBissexto `(uc  1 e 1 0 ]
-"169
+"171
 [v _converteAnoString converteAnoString `(*.39uc  1 e 2 0 ]
-"175
+"177
 [v _trata_relogio_data trata_relogio_data `(v  1 e 1 0 ]
-"238
+"241
 [v _init_XLCD init_XLCD `(v  1 e 1 0 ]
-"245
+"248
 [v _acionaDespertador acionaDespertador `(v  1 e 1 0 ]
-"254
+"257
 [v _atualiza_Tela atualiza_Tela `(v  1 e 1 0 ]
-"302
+"308
 [v _setaDespertador setaDespertador `(v  1 e 1 0 ]
-"348
+"354
 [v _crc16 crc16 `(us  1 e 2 0 ]
-"376
+"382
 [v _tx_data tx_data `(v  1 e 1 0 ]
-"389
+"395
 [v _enviaByte enviaByte `(v  1 e 1 0 ]
-"403
+"409
 [v _calculaCRCBUFFRESP calculaCRCBUFFRESP `(v  1 e 1 0 ]
-"415
+"421
 [v _trataComando trataComando `(v  1 e 1 0 ]
-"532
+"542
 [v _verificaCRCBUFFCOM verificaCRCBUFFCOM `(v  1 e 1 0 ]
-"562
+"572
 [v _maquinaEstado maquinaEstado `(v  1 e 1 0 ]
-"600
+"610
 [v _main main `(v  1 e 1 0 ]
 [s S203 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
@@ -164,7 +162,7 @@
 [v _PORTDbits PORTDbits `VES177  1 e 1 @3971 ]
 "2727
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S520 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S524 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -174,31 +172,31 @@
 `uc 1 LATB7 1 0 :1:7 
 ]
 "3543
-[s S529 . 1 `uc 1 LB0 1 0 :1:0 
+[s S533 . 1 `uc 1 LB0 1 0 :1:0 
 ]
-[s S531 . 1 `uc 1 . 1 0 :1:0 
+[s S535 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 LB1 1 0 :1:1 
 ]
-[s S534 . 1 `uc 1 . 1 0 :2:0 
+[s S538 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LB2 1 0 :1:2 
 ]
-[s S537 . 1 `uc 1 . 1 0 :3:0 
+[s S541 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 LB3 1 0 :1:3 
 ]
-[s S540 . 1 `uc 1 . 1 0 :4:0 
+[s S544 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LB4 1 0 :1:4 
 ]
-[s S543 . 1 `uc 1 . 1 0 :5:0 
+[s S547 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 LB5 1 0 :1:5 
 ]
-[s S546 . 1 `uc 1 . 1 0 :6:0 
+[s S550 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 LB6 1 0 :1:6 
 ]
-[s S549 . 1 `uc 1 . 1 0 :7:0 
+[s S553 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 LB7 1 0 :1:7 
 ]
-[u S552 . 1 `S520 1 . 1 0 `S529 1 . 1 0 `S531 1 . 1 0 `S534 1 . 1 0 `S537 1 . 1 0 `S540 1 . 1 0 `S543 1 . 1 0 `S546 1 . 1 0 `S549 1 . 1 0 ]
-[v _LATBbits LATBbits `VES552  1 e 1 @3978 ]
+[u S556 . 1 `S524 1 . 1 0 `S533 1 . 1 0 `S535 1 . 1 0 `S538 1 . 1 0 `S541 1 . 1 0 `S544 1 . 1 0 `S547 1 . 1 0 `S550 1 . 1 0 `S553 1 . 1 0 ]
+[v _LATBbits LATBbits `VES556  1 e 1 @3978 ]
 "3580
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
 [s S298 . 1 `uc 1 TRISC0 1 0 :1:0 
@@ -220,7 +218,7 @@
 [v _TRISCbits TRISCbits `VES312  1 e 1 @3988 ]
 "3954
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
-[s S609 . 1 `uc 1 TRISB0 1 0 :1:0 
+[s S613 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
 `uc 1 TRISB3 1 0 :1:3 
@@ -230,7 +228,7 @@
 `uc 1 TRISB7 1 0 :1:7 
 ]
 "4205
-[s S618 . 1 `uc 1 RB0 1 0 :1:0 
+[s S622 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -239,9 +237,9 @@
 `uc 1 RB6 1 0 :1:6 
 `uc 1 RB7 1 0 :1:7 
 ]
-[u S627 . 1 `S609 1 . 1 0 `S618 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES627  1 e 1 @3987 ]
-[s S100 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S631 . 1 `S613 1 . 1 0 `S622 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES631  1 e 1 @3987 ]
+[s S95 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -251,14 +249,14 @@
 `uc 1 SPPIF 1 0 :1:7 
 ]
 "4441
-[s S109 . 1 `uc 1 . 1 0 :4:0 
+[s S104 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IF 1 0 :1:4 
 `uc 1 RC1IF 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 PSPIF 1 0 :1:7 
 ]
-[u S115 . 1 `S100 1 . 1 0 `S109 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES115  1 e 1 @3998 ]
+[u S110 . 1 `S95 1 . 1 0 `S104 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES110  1 e 1 @3998 ]
 "4876
 [v _RCSTA RCSTA `VEuc  1 e 1 @4011 ]
 "5085
@@ -287,7 +285,7 @@
 [v _T0CONbits T0CONbits `VES344  1 e 1 @4053 ]
 "8033
 [v _TMR0 TMR0 `VEus  1 e 2 @4054 ]
-[s S51 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S46 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -297,7 +295,7 @@
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "8476
-[s S60 . 1 `uc 1 . 1 0 :1:0 
+[s S55 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -306,12 +304,12 @@
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S69 . 1 `uc 1 . 1 0 :6:0 
+[s S64 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S73 . 1 `S51 1 . 1 0 `S60 1 . 1 0 `S69 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES73  1 e 1 @4082 ]
+[u S68 . 1 `S46 1 . 1 0 `S55 1 . 1 0 `S64 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES68  1 e 1 @4082 ]
 "9658
 [v _PEIE PEIE `VEb  1 e 0 @32662 ]
 "9772
@@ -326,90 +324,92 @@
 [v _TXIF TXIF `VEb  1 e 0 @31988 ]
 "354 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
 [v _dpowers dpowers `C[5]ui  1 s 10 dpowers ]
+"54 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+[v _vet vet `[8]uc  1 e 8 0 ]
 [s S21 . 20 `[9]uc 1 horario 9 0 `[7]uc 1 data 7 9 `uc 1 dias 1 16 `uc 1 mes_atual 1 17 `i 1 ano 2 18 ]
-"53 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
-[v _data_horario data_horario `S21  1 e 20 0 ]
-"54
-[v _pegaHoraData pegaHoraData `[3]uc  1 e 3 0 ]
 "55
+[v _data_horario data_horario `S21  1 e 20 0 ]
+"56
+[v _pegaHoraData pegaHoraData `[3]uc  1 e 3 0 ]
+"57
 [v _BUFFCOM BUFFCOM `[7]uc  1 e 7 0 ]
 [v _BUFFRESP BUFFRESP `[7]uc  1 e 7 0 ]
-"56
-[v _estado estado `uc  1 e 1 0 ]
-"57
-[v _versao versao `[6]uc  1 e 6 0 ]
 "58
-[v _horarioDespertador horarioDespertador `[6]uc  1 e 6 0 ]
+[v _estado estado `uc  1 e 1 0 ]
+"59
+[v _versao versao `[6]uc  1 e 6 0 ]
 "60
-[v _i i `uc  1 e 1 0 ]
-"61
-[v _flagSegundo flagSegundo `uc  1 e 1 0 ]
+[v _horarioDespertador horarioDespertador `[6]uc  1 e 6 0 ]
 "62
-[v _cont cont `uc  1 e 1 0 ]
+[v _i i `uc  1 e 1 0 ]
 "63
-[v _flagDespertadorLigado flagDespertadorLigado `uc  1 e 1 0 ]
+[v _flagSegundo flagSegundo `uc  1 e 1 0 ]
 "64
-[v _virouDia virouDia `uc  1 e 1 0 ]
+[v _cont cont `uc  1 e 1 0 ]
 "65
-[v _botaoHora botaoHora `uc  1 e 1 0 ]
+[v _flagDespertadorLigado flagDespertadorLigado `uc  1 e 1 0 ]
 "66
-[v _botaoMin botaoMin `uc  1 e 1 0 ]
+[v _virouDia virouDia `uc  1 e 1 0 ]
 "67
-[v _tempoDespertador tempoDespertador `uc  1 e 1 0 ]
+[v _botaoHora botaoHora `uc  1 e 1 0 ]
 "68
+[v _botaoMin botaoMin `uc  1 e 1 0 ]
+"69
+[v _tempoDespertador tempoDespertador `uc  1 e 1 0 ]
+"70
 [v _tela_atual tela_atual `uc  1 e 1 0 ]
-"87
+"89
 [v _dias_mes dias_mes `[12]uc  1 e 12 0 ]
-"600
+"610
 [v _main main `(v  1 e 1 0 ]
 {
-"626
-[v main@botao botao `uc  1 a 1 18 ]
-"702
+"636
+[v main@botao botao `uc  1 a 1 21 ]
+"709
 } 0
-"175
+"177
 [v _trata_relogio_data trata_relogio_data `(v  1 e 1 0 ]
 {
-"236
+"237
 } 0
-"147
+"149
 [v _verificaAnoBissexto verificaAnoBissexto `(uc  1 e 1 0 ]
 {
 [v verificaAnoBissexto@ano ano `i  1 p 2 28 ]
-"167
+"169
 } 0
-"302
+"308
 [v _setaDespertador setaDespertador `(v  1 e 1 0 ]
 {
-"343
+"349
 } 0
-"562
+"572
 [v _maquinaEstado maquinaEstado `(v  1 e 1 0 ]
 {
-"597
+"607
 } 0
-"532
+"542
 [v _verificaCRCBUFFCOM verificaCRCBUFFCOM `(v  1 e 1 0 ]
 {
-"536
-[v verificaCRCBUFFCOM@crc crc `us  1 a 2 5 ]
-[v verificaCRCBUFFCOM@crc2 crc2 `us  1 a 2 2 ]
-[v verificaCRCBUFFCOM@crc1 crc1 `us  1 a 2 0 ]
-"535
-[v verificaCRCBUFFCOM@CRC_OK CRC_OK `uc  1 a 1 4 ]
-"560
+"546
+[v verificaCRCBUFFCOM@crc crc `us  1 a 2 42 ]
+[v verificaCRCBUFFCOM@crc2 crc2 `us  1 a 2 39 ]
+[v verificaCRCBUFFCOM@crc1 crc1 `us  1 a 2 37 ]
+"545
+[v verificaCRCBUFFCOM@CRC_OK CRC_OK `uc  1 a 1 41 ]
+"570
 } 0
-"376
+"382
 [v _tx_data tx_data `(v  1 e 1 0 ]
 {
-"377
+"383
 [v tx_data@cont cont `i  1 a 2 22 ]
-"387
+"393
 } 0
-"415
+"421
 [v _trataComando trataComando `(v  1 e 1 0 ]
 {
-"530
+"540
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\strlen.c
 [v _strlen strlen `(ui  1 e 2 0 ]
@@ -419,6 +419,11 @@
 "4
 [v strlen@s s `*.39Cuc  1 p 2 22 ]
 "13
+} 0
+"99 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+[v _printaDisplay printaDisplay `(v  1 e 1 0 ]
+{
+"102
 } 0
 "11 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\memcpy.c
 [v _memcpy memcpy `(*.39v  1 e 2 0 ]
@@ -433,40 +438,40 @@
 [v memcpy@n n `ui  1 p 2 32 ]
 "32
 } 0
-"403 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"409 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _calculaCRCBUFFRESP calculaCRCBUFFRESP `(v  1 e 1 0 ]
 {
-"405
+"411
 [v calculaCRCBUFFRESP@crc crc `us  1 a 2 35 ]
-"413
+"419
 } 0
-"348
+"354
 [v _crc16 crc16 `(us  1 e 2 0 ]
 {
-"352
+"358
 [v crc16@crc crc `ui  1 a 2 33 ]
-"351
+"357
 [v crc16@data data `ui  1 a 2 31 ]
-"349
+"355
 [v crc16@i i `uc  1 a 1 30 ]
-"348
+"354
 [v crc16@data_p data_p `*.39uc  1 p 2 22 ]
 [v crc16@length length `us  1 p 2 24 ]
-"374
+"380
 } 0
-"254
+"257
 [v _atualiza_Tela atualiza_Tela `(v  1 e 1 0 ]
 {
 [v atualiza_Tela@troca_ou_nao troca_ou_nao `uc  1 a 1 wreg ]
 [v atualiza_Tela@troca_ou_nao troca_ou_nao `uc  1 a 1 wreg ]
-"256
-[v atualiza_Tela@troca_ou_nao troca_ou_nao `uc  1 a 1 17 ]
-"300
+"259
+[v atualiza_Tela@troca_ou_nao troca_ou_nao `uc  1 a 1 20 ]
+"306
 } 0
 "16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\putrxlcd.c
 [v _putrsXLCD putrsXLCD `(v  1 e 1 0 ]
 {
-[v putrsXLCD@buffer buffer `*.35Cuc  1 p 2 37 ]
+[v putrsXLCD@buffer buffer `*.35Cuc  1 p 2 44 ]
 "25
 } 0
 "16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\writdata.c
@@ -478,28 +483,28 @@
 [v WriteDataXLCD@data data `uc  1 a 1 23 ]
 "63
 } 0
-"169 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"171 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _converteAnoString converteAnoString `(*.39uc  1 e 2 0 ]
 {
-"170
-[v converteAnoString@anoStr anoStr `[4]uc  1 a 4 13 ]
-"169
-[v converteAnoString@ano ano `i  1 p 2 35 ]
-"173
+"172
+[v converteAnoString@anoStr anoStr `[4]uc  1 a 4 16 ]
+"171
+[v converteAnoString@ano ano `i  1 p 2 42 ]
+"175
 } 0
 "492 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\doprnt.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
 {
 "528
-[v sprintf@val val `ui  1 a 2 10 ]
+[v sprintf@val val `ui  1 a 2 39 ]
 "494
-[v sprintf@ap ap `[1]*.39v  1 a 2 6 ]
+[v sprintf@ap ap `[1]*.39v  1 a 2 35 ]
 "499
-[v sprintf@c c `c  1 a 1 12 ]
+[v sprintf@c c `c  1 a 1 41 ]
 "506
-[v sprintf@prec prec `c  1 a 1 9 ]
+[v sprintf@prec prec `c  1 a 1 38 ]
 "508
-[v sprintf@flag flag `uc  1 a 1 8 ]
+[v sprintf@flag flag `uc  1 a 1 37 ]
 "492
 [v sprintf@sp sp `*.39uc  1 p 2 0 ]
 [v sprintf@f f `*.25Cuc  1 p 2 2 ]
@@ -527,10 +532,10 @@
 [v ___lwdiv@divisor divisor `ui  1 p 2 24 ]
 "31
 } 0
-"245 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"248 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _acionaDespertador acionaDespertador `(v  1 e 1 0 ]
 {
-"251
+"254
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\atoi.c
 [v _atoi atoi `(i  1 e 2 0 ]
@@ -586,20 +591,20 @@
 [v ___awdiv@divisor divisor `i  1 p 2 24 ]
 "42
 } 0
-"389 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"395 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _enviaByte enviaByte `(v  1 e 1 0 ]
 {
-"390
+"396
 [v enviaByte@BYTE BYTE `uc  1 a 1 wreg ]
 [v enviaByte@BYTE BYTE `uc  1 a 1 wreg ]
-"389
+"395
 [v enviaByte@BYTE BYTE `uc  1 a 1 22 ]
-"402
+"408
 } 0
-"238
+"241
 [v _init_XLCD init_XLCD `(v  1 e 1 0 ]
 {
-"243
+"246
 } 0
 "19 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\openxlcd.c
 [v _OpenXLCD OpenXLCD `(v  1 e 1 0 ]
@@ -628,10 +633,10 @@
 [v SetDDRamAddr@DDaddr DDaddr `uc  1 a 1 26 ]
 "60
 } 0
-"76 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"78 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _DelayPORXLCD DelayPORXLCD `(v  1 e 1 0 ]
 {
-"79
+"81
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\d1ktcyx.c
 [v _Delay1KTCYx Delay1KTCYx `(v  1 e 1 0 ]
@@ -654,10 +659,10 @@
 {
 "57
 } 0
-"72 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"74 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _DelayFor18TCY DelayFor18TCY `(v  1 e 1 0 ]
 {
-"74
+"76
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\d10tcyx.c
 [v _Delay10TCYx Delay10TCYx `(v  1 e 1 0 ]
@@ -667,35 +672,15 @@
 [v Delay10TCYx@unit unit `uc  1 a 1 22 ]
 "13
 } 0
-"102 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"104 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v _pic_isr pic_isr `IIL(v  1 e 1 0 ]
 {
-"143
+"145
 } 0
-"97
-[v _printaDisplay printaDisplay `(v  1 e 1 0 ]
+"99
+[v i1_printaDisplay printaDisplay `(v  1 e 1 0 ]
 {
-"100
-} 0
-"16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\putrxlcd.c
-[v i1_putrsXLCD putrsXLCD `(v  1 e 1 0 ]
-{
-[v i1putrsXLCD@buffer buffer `*.35Cuc  1 p 2 2 ]
-"25
-} 0
-"16 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\writdata.c
-[v i1_WriteDataXLCD WriteDataXLCD `(v  1 e 1 0 ]
-{
-[v i1WriteDataXLCD@data data `uc  1 a 1 wreg ]
-[v i1WriteDataXLCD@data data `uc  1 a 1 wreg ]
-"35
-[v i1WriteDataXLCD@data data `uc  1 a 1 1 ]
-"63
-} 0
-"11 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\busyxlcd.c
-[v i1_BusyXLCD BusyXLCD `(uc  1 e 1 0 ]
-{
-"57
+"102
 } 0
 "13 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\plib\XLCD\setddram.c
 [v i1_SetDDRamAddr SetDDRamAddr `(v  1 e 1 0 ]
@@ -706,10 +691,10 @@
 [v i1SetDDRamAddr@DDaddr DDaddr `uc  1 a 1 4 ]
 "60
 } 0
-"72 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
+"74 C:\Users\Marco\MPLABXProjects\RelogioComLCDePIC.X\main.c
 [v i1_DelayFor18TCY DelayFor18TCY `(v  1 e 1 0 ]
 {
-"74
+"76
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic18\d10tcyx.c
 [v i1_Delay10TCYx Delay10TCYx `(v  1 e 1 0 ]
